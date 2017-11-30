@@ -1,2 +1,2 @@
 # AdventOfCode
-Solutions to [Advent of Code](http://adventofcode.com/) problems
+Solutions to [Advent of Code](http://adventofcode.com/) problems, using node.js
