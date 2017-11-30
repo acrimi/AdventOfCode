@@ -31,7 +31,7 @@ function runTests(processor, tests, options, fileSuffix, isPart2) {
 }
 
 exports.run = (processor, options) => {
-  options.input = options.input ? [options.input] : getInput(null, options);
+  options.input = options.input || getInput(null, options);
 
   const part = +process.argv[2];
 
