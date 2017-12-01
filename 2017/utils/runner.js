@@ -1,5 +1,5 @@
 const fs = require('fs');
-const parser = require(__dirname + '/./parser.js');
+const parser = require('./parser.js');
 
 function getInput(testIndex, options) {
   let file = process.cwd() + '/input';

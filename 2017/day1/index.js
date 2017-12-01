@@ -1,7 +1,7 @@
-const runner = require(__dirname + '/../utils/runner.js');
+const runner = require('../utils/runner.js');
 process.chdir(__dirname);
 
-runner.run(require(__dirname + '/solution.js'), {
+runner.run(require('./solution.js'), {
   input: null,
   tests: [
 
