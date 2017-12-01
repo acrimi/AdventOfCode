@@ -8,15 +8,17 @@ exports.parse = (input, columnDelimiter, lineCleanUp, columnCleanUp) => {
     let line = lines[i];
     if (typeof lineCleanUp === 'function') {
       line = lineCleanUp(line);
-    } else if (lineCleanUp !== 'false') {
+    } else if (lineCleanUp === true) {
       line = line.trim().replace(/\s+/g, ' ');
     }
 
     if (columnDelimiter) {
       line = line.split(columnDelimiter);
-      if (typeof columnCleanUp === 'function') {
-        for (let j = 0; j < line.length; j++) {
+      for (let j = 0; j < line.length; j++) {
+        if (typeof columnCleanUp === 'function') {
           line[j] = columnCleanUp(line[j]);
+        } else if (columnCleanUp === true) {
+          line[j] = line[j].trim();
         }
       }
     }
