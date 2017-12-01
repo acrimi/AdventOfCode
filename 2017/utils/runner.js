@@ -24,7 +24,7 @@ function runTests(processor, tests, options, fileSuffix, isPart2) {
     }
   } else if (Array.isArray(tests)) {
     for (let i = 0; i < tests.length; i++) {
-      const res = processor([tests[i]], isPart2, true);
+      const res = processor(tests[i], isPart2, true);
       console.log('test'+(i+1)+(isPart2 ? '-2' : '')+': ' + res);
     }
   }
