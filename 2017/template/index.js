@@ -9,7 +9,8 @@ runner.run(require('./solution.js'), {
   tests2: [
 
   ],
-  columnDelimiter: false,
+  separateLines: true,
   lineCleanup: true,
+  columnDelimiter: false,
   columnCleanup: false
 });

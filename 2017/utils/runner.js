@@ -11,7 +11,12 @@ function getInput(testIndex, options) {
     return require(file + '.json');
   }
 
-  return parser.parse(file, options.columnDelimiter, options.lineCleanUp, options.columnCleanUp);
+  let input = fs.readFileSync(file, 'utf8');
+  if (options.separateLines) {
+    input = parser.parse(input, options.columnDelimiter, options.lineCleanup, options.columnCleanup);
+  }
+  
+  return input;
 }
 
 function runTests(processor, tests, options, fileSuffix, isPart2) {
