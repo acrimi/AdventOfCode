@@ -1,0 +1,32 @@
+{
+  "manifest_version": 2,
+  "name": "Advent of Code",
+  "version": "1.0",
+  "permissions" : [ "nativeMessaging", "tabs" ],  
+  "content_scripts": [
+    {
+      "matches": [
+        "http://adventofcode.com/*"
+      ],
+      "js": ["jquery-3.2.1.min.js", "content.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "commands": {
+    "saveTestInput": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S"
+      },
+      "description": "Save current selection as next test input"
+    },
+    "saveExpectedResult": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+X"
+      },
+      "description": "Save current selection as next expected test result"
+    }
+  }
+}
