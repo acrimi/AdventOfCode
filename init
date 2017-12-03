@@ -1,0 +1,12 @@
+#!/bin/sh
+
+DIRNAME="$(dirname $0)"
+if [ -e $DIRNAME/$1/day$2/index.js ]; then
+  echo "$1 day $2 files are already set up"
+else
+  if [ ! -e $DIRNAME/$1/day$2 ]; then
+    mkdir $DIRNAME/$1/day$2
+  fi
+  cp $DIRNAME/template/* $DIRNAME/$1/day$2
+  touch $DIRNAME/$1/day$2/input
+fi
