@@ -6,21 +6,14 @@ chrome.commands.onCommand.addListener(function(command) {
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request.name === "saveTestInput") {
-    writeTestInput(request.text);
-  } else if (request.name === "saveExpectedResult") {
-    writeExpectation(request.text);
+  if (request.name === 'saveTestInput' || request.name === 'saveExpectedResult') {
+    const data = {
+      input: request.name == 'saveTestInput' ? request.selection : null,
+      expect: request.name == 'saveExpectedResult' ? request.selection : null,
+      day: request.day,
+      year: request.year,
+      part: request.part
+    };
+    chrome.runtime.sendNativeMessage('com.crimi.adventofcode', data);
   }
 });
-
-function writeTestInput(text) {
-  chrome.runtime.sendNativeMessage('com.crimi.adventofcode',
-    { text: text },
-    function(response) {
-      console.log("Received " + response);
-    });
-}
-
-function writeExpectation(text) {
-
-}

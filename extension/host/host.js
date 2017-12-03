@@ -39,5 +39,5 @@ process.stdin.on('readable', () => {
     }
   }
 
-  fs.writeFileSync(testFile, testData);
+  fs.writeFileSync(testFile, JSON.stringify(testData, null, 2));
 });
