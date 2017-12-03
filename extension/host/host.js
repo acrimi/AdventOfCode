@@ -23,7 +23,21 @@ process.stdin.on('readable', () => {
     testData = require(testFile);
   }
 
-  // TODO update testData
+  const key = `part${data.part}`;
+  const tests = testData[key] || [];
+  testData[key] = tests;
+
+  if (data.input) {
+    tests.push({
+      input: data.input
+    });
+  } else if (data.expect) {
+    for (let test of tests) {
+      if (!test.expect) {
+        test.expect = data.expect;
+      }
+    }
+  }
 
   fs.writeFileSync(testFile, testData);
 });
