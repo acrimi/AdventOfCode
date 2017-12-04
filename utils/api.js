@@ -34,7 +34,7 @@ exports.getInput = (year, day) => {
           console.log('Unable to get input, please set your session token in ./session.txt or AOC_SESSION');
           process.exit();
         }
-        resolve(input);
+        resolve(input.trim());
       });
     });
   });
