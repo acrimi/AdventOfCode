@@ -30,7 +30,7 @@ async function runTests(processor, tests, options, isPart2, fileSuffix) {
       let testInput;
       let expect;
 
-      if (typeof test === 'object' && test.input) {
+      if (typeof test === 'object' && test.input != null) {
         testInput = processInput(test.input, options);
         expect = test.expect;
       } else {
