@@ -28,14 +28,12 @@ The extension will derive the year/day/part by inspecting the current page URL/D
       "input": "testInput2",
       "expect": "result2"
     }
-    ...
   ],
   "part2": [
     {
       "input": "testInput",
       "expect": "result"
     }
-    ...
   ]
 }
 ```
