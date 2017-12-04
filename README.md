@@ -29,4 +29,4 @@ $ ./init <year> <dayNumber>
 ```
 
 ## API Access
-To make use of the Advent of Code API integration (eg downloading input automatically), save your session token either in the `AOC_SESSION` environment variable or a `session.txt` file in the root directory. This should be the session cookie saved for the `.adventofcode.com` domain when you log in to the website.
+To make use of Advent of Code API integration (eg downloading input automatically), save your session token either in the `AOC_SESSION` environment variable or a `session.txt` file in the root directory of this project. This should be the session cookie saved for the `.adventofcode.com` domain when you log in to the website.
