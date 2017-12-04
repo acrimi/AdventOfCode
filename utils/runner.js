@@ -39,7 +39,7 @@ async function runTests(processor, tests, options, isPart2, fileSuffix) {
 
       const res = processor(testInput, isPart2, true);
       let outcome = '';
-      if (expect) {
+      if (expect != null) {
         outcome = (res == expect ? '-> \x1b[32mpass' : '-> \x1b[31mfail') + '\x1b[0m';
       }
       console.log(`test${(i+1)}${testSuffix}:`, res, outcome);
