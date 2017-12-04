@@ -1,5 +1,5 @@
 # AdventOfCode
-Solutions to [Advent of Code](http://adventofcode.com/) problems using node.js
+Solutions to [Advent of Code](http://adventofcode.com/) problems using node.js 8
 
 ## Usage
 
