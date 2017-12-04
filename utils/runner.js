@@ -56,8 +56,8 @@ exports.run = async (options) => {
   const processor = loader.loadSolution();
   const tests = loader.loadTestConfig();
   const part = +process.argv[2];
-  const autoSubmit = !!process.argv.find(x => /-s|--submit/.test(x));
-  const requirePass = !!process.argv.find(x => /-r|--require-pass/.test(x));
+  const autoSubmit = !!process.argv.find(x => /-r?sr?|--submit/.test(x));
+  const requirePass = !!process.argv.find(x => /-s?rs?|--require-pass/.test(x));
 
   const pathMatch = process.cwd().match(/(\d{4})\/day(\d+)$/);
   const year = pathMatch[1];
