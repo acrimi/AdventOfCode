@@ -8,5 +8,4 @@ else
     mkdir $DIRNAME/$1/day$2
   fi
   cp $DIRNAME/template/* $DIRNAME/$1/day$2
-  touch $DIRNAME/$1/day$2/input
 fi
