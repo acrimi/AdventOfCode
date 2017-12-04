@@ -2,11 +2,11 @@ A Chrome extension to help with pulling test data out of puzzle pages
 
 ## Installation
 
-Run the appropriate `install_host` script for Windows or Linux/OSX to register the native component of the extension.
+In the `host` folder, run the appropriate `install_host` script for Windows or Linux/OSX to register the native component of the extension.
 
 Next, load the `app` folder as an unpacked extension in chrome, per the [documentation](https://developer.chrome.com/extensions/getstarted#unpacked)
 
-To remove the extension, run `uninstall_host` and delete the extension from Chrome.
+To remove the extension, run `/host/uninstall_host` and delete the extension from Chrome.
 
 ## Usage
 
@@ -40,4 +40,4 @@ The extension will derive the year/day/part by inspecting the current page URL/D
 
 The `test.json` file will be used to run test cases with your solution. Any test with an `expect` value will also test your solution's result against it and evaluate the test with a `pass` or `fail`.
 
-NB: The extension simply saves in order, so make sure the order of your input selections matches the order of your result selections exactly.
+NB: The extension simply saves in order, so make sure the order of your input selections matches the order of your result selections exactly for each part.
