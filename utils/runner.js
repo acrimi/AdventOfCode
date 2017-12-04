@@ -14,7 +14,7 @@ async function getInput(testIndex) {
     input = fs.readFileSync(file, 'utf8');
   } else {
     if (fs.existsSync(file + '.json')) {
-      return require(file + '.json');
+      input = require(file + '.json');
     } else if (!testIndex) {
       const pathMatch = process.cwd().match(/(\d{4})\/day(\d+)$/);
       const year = pathMatch[1];
@@ -105,10 +105,10 @@ exports.run = async (options) => {
 
   if (part !== 2) {
     if (options.tests) {
-      runTests(processor, options.tests, options);
+      await runTests(processor, options.tests, options);
     }
     if (tests && tests.part1) {
-      runTests(processor, tests.part1, options);
+      await runTests(processor, tests.part1, options);
     }
   }
 
@@ -118,12 +118,12 @@ exports.run = async (options) => {
 
   if (part !== 1) {
     if (options.tests2) {
-      runTests(processor, options.tests2, options, true, '-2');
+      await runTests(processor, options.tests2, options, true, '-2');
     } else if (options.tests) {
-      runTests(processor, options.tests, options, true);
+      await runTests(processor, options.tests, options, true);
     }
     if (tests && tests.part2) {
-      runTests(processor, tests.part2, options, true);
+      await runTests(processor, tests.part2, options, true);
     }
   }
 
