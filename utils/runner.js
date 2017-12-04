@@ -1,18 +1,30 @@
 const fs = require('fs');
+
+const api = require('./api.js');
 const parser = require('./parser.js');
 
-function getInput(testIndex) {
+async function getInput(testIndex) {
   let file = process.cwd() + '/input';
   if (testIndex) {
     file = process.cwd() + '/test'+testIndex;
   }
 
-  if (!fs.existsSync(file) && fs.existsSync(file + '.json')) {
-    return require(file + '.json');
+  let input;
+  if (fs.existsSync(file)) {
+    input = fs.readFileSync(file, 'utf8');
+  } else {
+    if (fs.existsSync(file + '.json')) {
+      return require(file + '.json');
+    } else if (!testIndex) {
+      const pathMatch = process.cwd().match(/(\d{4})\/day(\d+)$/);
+      const year = pathMatch[1];
+      const day = pathMatch[2];
+      input = await api.getInput(year, day);
+
+      fs.writeFileSync(file, input);
+    }
   }
 
-  let input = fs.readFileSync(file, 'utf8');
-  
   return input;
 }
 
@@ -24,13 +36,13 @@ function processInput(input, options) {
   return input
 }
 
-function runTests(processor, tests, options, isPart2, fileSuffix) {
+async function runTests(processor, tests, options, isPart2, fileSuffix) {
   fileSuffix = fileSuffix || '';
   const testSuffix = (isPart2 ? '-2' : '');
 
   if (typeof tests === 'number') {
     for (let i = 0; i < tests; i++) {
-      let testInput = getInput((i+1) + fileSuffix);
+      let testInput = await getInput((i+1) + fileSuffix);
       testInput = processInput(testInput, options);
 
       const res = processor(testInput, isPart2, true);
@@ -83,12 +95,12 @@ function loadTestConfig() {
   }
 }
 
-exports.run = (options) => {
+exports.run = async (options) => {
   const processor = loadSolution();
   const tests = loadTestConfig();
   const part = +process.argv[2];
 
-  let input = options.input || getInput(null, options);
+  let input = options.input || await getInput();
   input = processInput(input, options);
 
   if (part !== 2) {
@@ -118,4 +130,4 @@ exports.run = (options) => {
   if (part !== 1) {
     console.log('part 2:', processor(input, true));
   }
-}
+};
