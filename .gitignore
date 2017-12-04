@@ -1,3 +1,4 @@
 *.png
 .vscode/
 /session.txt
+**/input
