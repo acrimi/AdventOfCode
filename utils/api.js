@@ -71,7 +71,7 @@ exports.submit = (year, day, part, answer) => {
       });
 
       res.on('end', () => {
-        let message = response.match(/<article><p>(.*)<\/p><\/article>/);
+        let message = response.match(/<article><p>([\s\S]*)<\/p><\/article>/);
         if (message) {
           message = message[1].replace(/<[^>]+>/g, '');
           console.log(message);
