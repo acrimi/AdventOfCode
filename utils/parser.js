@@ -24,5 +24,9 @@ exports.parse = (input, columnDelimiter, lineCleanup, columnCleanup) => {
     lines[i] = line;
   }
 
+  if (lines.length == 1) {
+    return lines[0];
+  }
+
   return lines;
 } 

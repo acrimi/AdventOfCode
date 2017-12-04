@@ -1,7 +1,7 @@
 const fs = require('fs');
 const parser = require('./parser.js');
 
-function getInput(testIndex, options) {
+function getInput(testIndex) {
   let file = process.cwd() + '/input';
   if (testIndex) {
     file = process.cwd() + '/test'+testIndex;
@@ -12,51 +12,91 @@ function getInput(testIndex, options) {
   }
 
   let input = fs.readFileSync(file, 'utf8');
-  if (options.separateLines) {
-    input = parser.parse(input, options.columnDelimiter, options.lineCleanup, options.columnCleanup);
-  }
   
   return input;
 }
 
-function runTests(processor, tests, options, fileSuffix, isPart2) {
+function processInput(input, options) {
+  if (typeof input === 'string' && options.separateLines) {
+    input = parser.parse(input, options.columnDelimiter, options.lineCleanup, options.columnCleanup);
+  }
+
+  return input
+}
+
+function runTests(processor, tests, options, isPart2, fileSuffix) {
   fileSuffix = fileSuffix || '';
+  const testSuffix = (isPart2 ? '-2' : '');
+
   if (typeof tests === 'number') {
     for (let i = 0; i < tests; i++) {
-      const test = getInput((i+1) + fileSuffix, options);
-      const res = processor(test, isPart2, true);
-      console.log('test'+(i+1)+(isPart2 ? '-2' : '')+': ' + res);
+      let testInput = getInput((i+1) + fileSuffix);
+      testInput = processInput(testInput, options);
+
+      const res = processor(testInput, isPart2, true);
+      console.log(`test${(i+1)}${testSuffix}:`, res);
     }
   } else if (Array.isArray(tests)) {
     for (let i = 0; i < tests.length; i++) {
-      const res = processor(tests[i], isPart2, true);
-      console.log('test'+(i+1)+(isPart2 ? '-2' : '')+': ' + res);
+      const test = tests[i];
+
+      let testInput;
+      let expect;
+
+      if (typeof test === 'object' && test.input) {
+        testInput = processInput(test.input, options);
+        expect = test.expect;
+      } else {
+        testInput = processInput(tests[i], options);
+      }
+
+      const res = processor(testInput, isPart2, true);
+      let outcome = '';
+      if (expect) {
+        outcome = res == expect ? '-> pass' : '-> fail';
+      }
+      console.log(`test${(i+1)}${testSuffix}:`, res, outcome);
     }
   }
 }
 
 exports.run = (processor, options) => {
-  options.input = options.input || getInput(null, options);
+  let input = options.input || getInput(null, options);
+  input = processInput(input, options);
+
+  let tests;
+  const testFile = process.cwd() + '/test.json';
+  if (fs.existsSync(testFile)) {
+    tests = require(testFile);
+  }
 
   const part = +process.argv[2];
 
-  if (part !== 2 && options.tests) {
-    runTests(processor, options.tests, options);
+  if (part !== 2) {
+    if (options.tests) {
+      runTests(processor, options.tests, options);
+    }
+    if (tests && tests.part1) {
+      runTests(processor, tests.part1, options);
+    }
   }
 
   if (part !== 2) {
-    console.log('part 1:', processor(options.input));
+    console.log('part 1:', processor(input));
   }
 
   if (part !== 1) {
     if (options.tests2) {
-      runTests(processor, options.tests2, options, '-2', true);
+      runTests(processor, options.tests2, options, true, '-2');
     } else if (options.tests) {
-      runTests(processor, options.tests, options, '', true);
+      runTests(processor, options.tests, options, true);
+    }
+    if (tests && tests.part2) {
+      runTests(processor, tests.part2, options, true);
     }
   }
 
   if (part !== 1) {
-    console.log('part 2:', processor(options.input, true));
+    console.log('part 2:', processor(input, true));
   }
 }

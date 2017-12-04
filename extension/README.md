@@ -40,4 +40,6 @@ The extension will derive the year/day/part by inspecting the current page URL/D
 }
 ```
 
+The `test.json` file will be used to run test cases with your solution. Any test with an `expect` value will also test your solution's result against it and evaluate the test with a `pass` or `fail`.
+
 NB: The extension simply saves in order, so make sure the order of your input selections matches the order of your result selections exactly.
