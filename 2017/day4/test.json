@@ -1,0 +1,38 @@
+{
+  "part1": [
+    {
+      "input": "aa bb cc dd ee",
+      "expect": 1
+    },
+    {
+      "input": "aa bb cc dd aa",
+      "expect": 0
+    },
+    {
+      "input": "aa bb cc dd aaa",
+      "expect": 1
+    }
+  ],
+  "part2": [
+    {
+      "input": "abcde fghij",
+      "expect": 1
+    },
+    {
+      "input": "abcde xyz ecdab",
+      "expect": 0
+    },
+    {
+      "input": "a ab abc abd abf abj",
+      "expect": 1
+    },
+    {
+      "input": "iiii oiii ooii oooi oooo",
+      "expect": 1
+    },
+    {
+      "input": "oiii ioii iioi iiio",
+      "expect": 0
+    }
+  ]
+}
