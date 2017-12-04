@@ -1,4 +1,4 @@
-const runner = require('../utils/runner.js');
+const runner = require('../../utils/runner.js');
 process.chdir(__dirname);
 
 runner.run({
