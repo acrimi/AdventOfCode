@@ -60,17 +60,36 @@ function runTests(processor, tests, options, isPart2, fileSuffix) {
   }
 }
 
-exports.run = (processor, options) => {
-  let input = options.input || getInput(null, options);
-  input = processInput(input, options);
-
-  let tests;
-  const testFile = process.cwd() + '/test.json';
-  if (fs.existsSync(testFile)) {
-    tests = require(testFile);
+function loadSolution() {
+  let version = '';
+  const versionIndex = process.argv.indexOf(process.argv.find(v => ['-v', '--version'].indexOf(v) !== -1 )) + 1;
+  if (versionIndex !== 0 && versionIndex < process.argv.length) {
+    version = '-' + process.argv[versionIndex];
   }
 
+  const solutionFile = `${process.cwd()}/solution${version}.js`;
+  if (fs.existsSync(solutionFile)) {
+    return require(solutionFile);
+  } else {
+    console.log('Solution file not found');
+    process.exit();
+  }
+}
+
+function loadTestConfig() {
+  const testFile = process.cwd() + '/test.json';
+  if (fs.existsSync(testFile)) {
+    return require(testFile);
+  }
+}
+
+exports.run = (options) => {
+  const processor = loadSolution();
+  const tests = loadTestConfig();
   const part = +process.argv[2];
+
+  let input = options.input || getInput(null, options);
+  input = processInput(input, options);
 
   if (part !== 2) {
     if (options.tests) {
