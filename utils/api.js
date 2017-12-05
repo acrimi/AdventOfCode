@@ -35,7 +35,7 @@ exports.getInput = (year, day) => {
           console.log('Unable to get input, please set your session token in ./session.txt or AOC_SESSION');
           process.exit();
         }
-        if (input == '404 Not Found') {
+        if (input.trim() == '404 Not Found') {
           console.log('Input not available');
           process.exit();
         }
