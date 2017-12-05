@@ -6,7 +6,7 @@
   "content_scripts": [
     {
       "matches": [
-        "http://adventofcode.com/*"
+        "*://adventofcode.com/*"
       ],
       "js": ["jquery-3.2.1.min.js", "content.js"]
     }
