@@ -32,9 +32,18 @@ process.stdin.on('readable', () => {
       input: data.input
     });
   } else if (data.expect) {
-    for (let test of tests) {
-      if (!test.expect) {
-        test.expect = data.expect;
+    if (data.part === 2 && tests.length === 0 && testData.part1 && testData.part1.length === 1) {
+      // No part2 data exists, part 1 has one test case, reuse input
+      // For common scenario where both parts have same test input but different results
+      tests.push({
+        input: testData.part1[0].input,
+        expect: data.expect
+      });
+    } else {
+      for (let test of tests) {
+        if (!test.expect) {
+          test.expect = data.expect;
+        }
       }
     }
   }
