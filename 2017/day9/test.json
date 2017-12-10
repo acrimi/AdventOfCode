@@ -1,0 +1,66 @@
+{
+  "part1": [
+    {
+      "input": "{}",
+      "expect": "1"
+    },
+    {
+      "input": "{{{}}}",
+      "expect": "6"
+    },
+    {
+      "input": "{{},{}}",
+      "expect": "5"
+    },
+    {
+      "input": "{{{},{},{{}}}}",
+      "expect": "16"
+    },
+    {
+      "input": "{<a>,<a>,<a>,<a>}",
+      "expect": "1"
+    },
+    {
+      "input": "{{<ab>},{<ab>},{<ab>},{<ab>}}",
+      "expect": "9"
+    },
+    {
+      "input": "{{<!!>},{<!!>},{<!!>},{<!!>}}",
+      "expect": "9"
+    },
+    {
+      "input": "{{<a!>},{<a!>},{<a!>},{<ab>}}",
+      "expect": "3"
+    }
+  ],
+  "part2": [
+    {
+      "input": "<{o\"i!a,<{i<a>",
+      "expect": "10"
+    },
+    {
+      "input": "<>",
+      "expect": "0"
+    },
+    {
+      "input": "<random characters>",
+      "expect": "17"
+    },
+    {
+      "input": "<<<<>",
+      "expect": "3"
+    },
+    {
+      "input": "<{!>}>",
+      "expect": "2"
+    },
+    {
+      "input": "<!!>",
+      "expect": "0"
+    },
+    {
+      "input": "<!!!>>",
+      "expect": "0"
+    }
+  ]
+}
