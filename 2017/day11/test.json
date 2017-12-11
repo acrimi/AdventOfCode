@@ -1,0 +1,16 @@
+{
+  "part1": [
+    {
+      "input": "ne,ne,ne",
+      "expect": "3"
+    },
+    {
+      "input": "ne,ne,sw,sw",
+      "expect": "0"
+    },
+    {
+      "input": "ne,ne,s,s",
+      "expect": "2"
+    }
+  ]
+}
