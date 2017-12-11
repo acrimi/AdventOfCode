@@ -11,6 +11,10 @@
     {
       "input": "ne,ne,s,s",
       "expect": "2"
+    },
+    {
+      "input": "se,se,se,se,s",
+      "expect": "5"
     }
   ]
 }

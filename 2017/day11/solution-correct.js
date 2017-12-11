@@ -1,15 +1,15 @@
 /*
- * This is the solution I originally used to complete the problem.
- * However, it is NOT correct; I just got lucky that it worked
- * for my input and the test cases given by AoC. I added a 4th
- * test case to illustrate its flaw and added the correct
- * solution in the `-correct` js file.
+ * The proper solution, is correct for my input, the AoC test cases,
+ * and the 4th test case I added. Basically the same as the original
+ * solution except for the `getCurrentDistance` implementation
  */
 module.exports = (input, isPart2, isTest) => {
   let result = 0;
   
   const getCurrentDistance = (x, y) => {
-    return Math.max(Math.abs(x), Math.abs(Math.ceil(y)));
+    x = Math.abs(x);
+    y = Math.abs(y);
+    return x + Math.max(0, y - x/2);
   };
 
   let maxDistance = 0;
