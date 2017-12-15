@@ -6,7 +6,7 @@ module.exports = (input, isPart2, isTest) => {
   let factorA = 16807;
   let factorB = 48271;
   let divisor = 2147483647;
-  let cycles = isPart2 ? 5000000 : 40000000;
+  let cycles = isPart2 ? 5e6 : 4e7;
 
   const generateA = (previousA) => {
     let a = (previousA * factorA) % divisor;
