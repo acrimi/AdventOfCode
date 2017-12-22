@@ -10,7 +10,7 @@ exports.parse = (input, columnDelimiter, lineCleanup, columnCleanup) => {
       line = line.trim().replace(/\s+/g, ' ');
     }
 
-    if (columnDelimiter) {
+    if (columnDelimiter || columnDelimiter === '') {
       line = line.split(columnDelimiter);
       for (let j = 0; j < line.length; j++) {
         if (typeof columnCleanup === 'function') {
