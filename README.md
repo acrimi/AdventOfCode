@@ -23,7 +23,7 @@ Where `part` is an optional number, 1 or 2, to run only a single part of the pro
 
 - `-s | --submit`: Will automatically submit the answer returned by your solution to the AoC API. Only takes effect when executing a single part of the problem. API access must be set up as detailed below.
 
-- `-r | --require-pass`: When used in conjunction with `--submit`, requires that all test cases are passing before submitting the answer to the AoC API. Only applies to test cases in `test.json` that contain an `expect` value (see the [Chrome extension README](https://github.com/acrimi/AdventOfCode/blob/master/extension/README.md)). Manually specified test inputs and test cases without an `expect` value are considered passing by default.
+- `-t | --test-strict`: When used in conjunction with `--submit`, requires that all test cases are passing before submitting the answer to the AoC API. Only applies to test cases in `test.json` that contain an `expect` value (see the [Chrome extension README](https://github.com/acrimi/AdventOfCode/blob/master/extension/README.md)). Manually specified test inputs and test cases without an `expect` value are considered passing by default.
 
 The input for each day can be specified in the config object in the `index.js` file or an `input` file in the day's directory. If no input is given and API access is setup (see below), the input will be downloaded and cached from the AoC website automatically.
 
