@@ -1,0 +1,22 @@
+{
+  "part1": [
+    {
+      "input": [
+        "abcdef",
+        "bababc",
+        "abbcde",
+        "abcccd",
+        "aabcdd",
+        "abcdee",
+        "ababab"
+      ],
+      "expect": "12"
+    }
+  ],
+  "part2": [
+    {
+      "input": "abcde\nfghij\nklmno\npqrst\nfguij\naxcye\nwvxyz",
+      "expect": "fgij"
+    }
+  ]
+}
