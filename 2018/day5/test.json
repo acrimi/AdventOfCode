@@ -1,0 +1,14 @@
+{
+  "part1": [
+    {
+      "input": "dabAcCaCBAcCcaDA",
+      "expect": "10"
+    }
+  ],
+  "part2": [
+    {
+      "input": "dabAcCaCBAcCcaDA",
+      "expect": "4"
+    }
+  ]
+}
