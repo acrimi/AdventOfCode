@@ -1,0 +1,24 @@
+{
+  "part1": [
+    {
+      "input": "10 players; last marble is worth 1618 points",
+      "expect": "8317"
+    },
+    {
+      "input": "13 players; last marble is worth 7999 points",
+      "expect": "146373"
+    },
+    {
+      "input": "17 players; last marble is worth 1104 points",
+      "expect": "2764"
+    },
+    {
+      "input": "21 players; last marble is worth 6111 points",
+      "expect": "54718"
+    },
+    {
+      "input": "30 players; last marble is worth 5807 points",
+      "expect": "37305"
+    }
+  ]
+}
