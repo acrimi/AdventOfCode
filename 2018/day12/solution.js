@@ -43,6 +43,10 @@ module.exports = (input, isPart2, isTest) => {
     newState = pre + newState;
     zeroPot += pre.length;
 
+    let len = newState.length;
+    newState = newState.replace(/(?:^\.{5,}(?=\.{5}))|(?:(?<=\.{5})\.{5,}$)/, '');
+    zeroPot -= len - newState.length;
+
     currentState = newState;
   }
 
