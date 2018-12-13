@@ -6,6 +6,8 @@ module.exports = (input, isPart2, isTest) => {
   const rules = {};
   let currentState = '.....' + initial + '.....';
   let zeroPot = 5;
+  let stableGeneration = -1;
+  let generationalOffset = 0;
 
   for (let i = 2; i < input.length; i++) {
     const [_, rule, output] = input[i].match(/([.#]+) => ([.#])/);
@@ -16,6 +18,7 @@ module.exports = (input, isPart2, isTest) => {
     let newState = '';
     let pre = '';
     let maxChanged = 0;
+    let newZeroPot = zeroPot;
 
     for (let j = 0; j < currentState.length; j++) {
       let pattern = '';
@@ -41,19 +44,34 @@ module.exports = (input, isPart2, isTest) => {
       newState += '.';
     }
     newState = pre + newState;
-    zeroPot += pre.length;
+    newZeroPot += pre.length;
 
     let len = newState.length;
-    newState = newState.replace(/(?:^\.{5,}(?=\.{5}))|(?:(?<=\.{5})\.{5,}$)/, '');
-    zeroPot -= len - newState.length;
+    newState = newState.replace(/(?:^\.+(?=\.{5}))|(?:(?<=\.{5})\.+$)/, '');
+    newZeroPot -= len - newState.length;
+    
+    if (newState === currentState) {
+      // state has stabilized
+      stableGeneration = i;
+      generationalOffset = zeroPot - newZeroPot;
+      i = generationCount; // break loop early
+    }
 
+    zeroPot = newZeroPot
     currentState = newState;
   }
 
+  let numPlants = 0;
   for (let i = 0; i < currentState.length; i++) {
     if (currentState[i] === '#') {
       result += i - zeroPot;
+      numPlants++;
     }
+  }
+
+  if (stableGeneration >= 0) {
+    let generationDif = generationCount - 1 - stableGeneration;
+    result = result + (numPlants * generationDif * generationalOffset);
   }
 
   return result;
