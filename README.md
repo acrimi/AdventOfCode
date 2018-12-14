@@ -25,6 +25,8 @@ Where `part` is an optional number, 1 or 2, to run only a single part of the pro
 
 - `-t | --test-strict`: When used in conjunction with `--submit`, requires that all test cases are passing before submitting the answer to the AoC API. Only applies to test cases in `test.json` that contain an `expect` value (see the [Chrome extension README](https://github.com/acrimi/AdventOfCode/blob/master/extension/README.md)). Manually specified test inputs and test cases without an `expect` value are considered passing by default.
 
+- `-p | --profile`: Will profile your solution and log out the time it takes to run, in milliseconds, alongside the result.
+
 The input for each day can be specified in the config object in the `index.js` file or an `input` file in the day's directory. If no input is given and API access is setup (see below), the input will be downloaded and cached from the AoC website automatically.
 
 Test inputs can be specified for each part in the config object in the day's `index.js` file as either arrays of input values or as numbers. If specified as a number, the script will consider it a count of indexed files in the day directory, each containing a single test input value (`/dayX/test1`, `/dayX/test2`,... for part 1; `/dayX/test1-2`, `/dayX/test2-2`,... for part 2). However, the preferred method for adding tests is adding them as test cases to a `test.json` file in the day's directory, usually in conjunction with the [Chrome extension](https://github.com/acrimi/AdventOfCode/blob/master/extension)).
