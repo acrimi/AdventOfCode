@@ -43,6 +43,7 @@ process.stdin.on('readable', () => {
       for (let test of tests) {
         if (!test.expect) {
           test.expect = data.expect;
+          break;
         }
       }
     }
