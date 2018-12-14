@@ -48,7 +48,7 @@ module.exports = (input, isPart2, isTest) => {
       return obj;
     });
 
-    if (result) {
+    if (isPart2 && result) {
       break;
     }
 
