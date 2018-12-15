@@ -178,9 +178,12 @@ module.exports = (input, isPart2, isTest) => {
       for (let x = 1; x < arena[y].length - 1; x++) {
         let unit = arena[y][x];
         if (unit.type && !updated.has(unit)) {
+          if (units[enemy[unit.type]].length === 0) {
+            break main;
+          }
           let target = findNearestEnemy(unit);
           if (!target) {
-            break main;
+            continue;
           }
 
           moveTowardTarget(unit, target.path);
