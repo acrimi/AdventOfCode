@@ -94,36 +94,48 @@ module.exports = (input, isPart2, isTest) => {
       visited: new Set([(unit.x << 16) + unit.y]),
       x: unit.x,
       y: unit.y,
-      score: distance(unit, target)
+      score: distance(unit, target),
+      weights: ''
     }];
 
     const queuePath = (path) => {
       let i = 0;
       for (; i < availablePaths.length; i++) {
         let path2 = availablePaths[i];
-        if (path2.score > path.score || (path2.score === path.score && path2.weight < path.weight)) {
+        if (path2.score > path.score) {
           break;
+        } else if (path2.score === path.score) {
+          let minLength = Math.min(path2.weights, path.weights);
+          if (path2.weights.substring(0, minLength) < path.weights.substring(0, minLength)) {
+            break;
+          }
         }
       }
       availablePaths.splice(i, 0, path);
     };
 
     let completedPath;
-    while (!completedPath) {
+    while (availablePaths.length) {
       let currentPath = availablePaths.shift();
       if (!currentPath) {
         break;
+      }
+      if (completedPath &&
+        (currentPath.score > completedPath.steps.length ||
+          completedPath.weights.substring(0, currentPath.weights.length) > currentPath.weights)) {
+        continue;
       }
 
       for (let i = 0; i < possibleSteps.length; i++) {
         let step = possibleSteps[i];
         let nextPath = {
           steps: [...currentPath.steps],
-          visited: new Set(currentPath.visited)
+          visited: new Set(currentPath.visited),
+          x: currentPath.x + step.x,
+          y: currentPath.y + step.y,
+          weights: currentPath.weights + step.weight
         };
-        nextPath.x = currentPath.x + step.x;
-        nextPath.y = currentPath.y + step.y;
-        
+
         let key = (nextPath.x << 16) + nextPath.y;
         if (nextPath.visited.has(key)) {
           // no backtracking
@@ -134,13 +146,12 @@ module.exports = (input, isPart2, isTest) => {
 
         if (nextPath.x === target.x && nextPath.y === target.y) {
           completedPath = nextPath;
-          break;
+          continue;
         }
         if (!isCellPassable(nextPath.x, nextPath.y)) {
           continue;
         }
         nextPath.score = nextPath.steps.length + distance(nextPath, target);
-        nextPath.weight = step.weight;
         queuePath(nextPath);
       }
     }
