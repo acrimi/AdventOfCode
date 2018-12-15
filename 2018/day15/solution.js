@@ -64,10 +64,19 @@ module.exports = (input, isPart2, isTest) => {
       if (!path) {
         continue;
       }
-      if (!shortestPath || path.length < shortestPath.length ||
-        (path.length === shortestPath.length && path[0].weight > shortestPath[0].weight)) {
+      if (!shortestPath || path.length < shortestPath.length) {
         shortestPath = path;
         nearestEnemy = enemy;
+      } else if (path.length === shortestPath.length) {
+        if (path.length === 1) {
+          if (enemy.hp < nearestEnemy.hp) {
+            shortestPath = path;
+            nearestEnemy = enemy;
+          }
+        } else if (path[0].weight > shortestPath[0].weight) {
+          shortestPath = path;
+          nearestEnemy = enemy;
+        }
       }
     }
 
