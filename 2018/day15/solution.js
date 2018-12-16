@@ -8,11 +8,10 @@ module.exports = (input, isPart2, isTest) => {
   const initialHP = 200;
   const attackPower = 3;
 
-  
   const possibleSteps = [
-    {x: -1, y: 0, weight: 3},
-    {x: 1, y: 0, weight: 2},
-    {x: 0, y: -1, weight: 1},
+    {x: 0, y: -1, weight: 3},
+    {x: -1, y: 0, weight: 2},
+    {x: 1, y: 0, weight: 1},
     {x: 0, y: 1, weight: 0}
   ];
   const units = {
