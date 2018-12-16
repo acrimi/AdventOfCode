@@ -1,19 +1,28 @@
+let testNo = 1;
 module.exports = (input, isPart2, isTest) => {
-  let result = 0;
+  if (!isPart2) {
+    return run(3, input, false, true);
+  } else {
+    return 0;
+  }
+}
 
-  const wall = '#';
+function run(elfPower, input, isPart2, isTest) {
   const empty = '.';
   const goblin = 'G';
   const elf = 'E';
   const initialHP = 200;
-  const attackPower = 3;
-
   const possibleSteps = [
     {x: 0, y: -1, weight: 3},
     {x: -1, y: 0, weight: 2},
     {x: 1, y: 0, weight: 1},
     {x: 0, y: 1, weight: 0}
   ];
+
+  const attackPower = {
+    G: 3,
+    E: elfPower
+  };
   const units = {
     G: [],
     E: []
@@ -29,7 +38,7 @@ module.exports = (input, isPart2, isTest) => {
         let unit = {
           type: cell,
           hp: initialHP,
-          attackPower: attackPower,
+          attackPower: attackPower[cell],
           x: index,
           y: i
         };
@@ -196,9 +205,26 @@ module.exports = (input, isPart2, isTest) => {
     }
   }
 
+  let out = '';
   let round = 0;
   main:
   while (true) {
+    out += round + '\n';
+    for (let row of arena) {
+      let stats = [];
+      for (let cell of row) {
+        out += cell.type || cell;
+        if (cell.type) {
+          stats.push(`${cell.type}(${cell.hp})`);
+        }
+      }
+      if (stats.length) {
+        out += ' ' + stats.join(',');
+      }
+      out += '\n';
+    }
+    out += '\n';
+
     let updated = new Set();
     for (let y = 1; y < arena.length - 1; y++) {
       for (let x = 1; x < arena[y].length - 1; x++) {
@@ -207,6 +233,7 @@ module.exports = (input, isPart2, isTest) => {
           if (units[enemy[unit.type]].length === 0) {
             break main;
           }
+
           let target = findNearestEnemy(unit);
           if (!target) {
             continue;
@@ -223,7 +250,28 @@ module.exports = (input, isPart2, isTest) => {
     round++;
   }
 
-  result = round * units.E.concat(units.G).reduce((accum, unit) => accum + unit.hp, 0);
+  
+  out += 'END\n';
+  for (let row of arena) {
+    let stats = [];
+    for (let cell of row) {
+      out += cell.type || cell;
+      if (cell.type) {
+        stats.push(`${cell.type}(${cell.hp})`);
+      }
+    }
+    if (stats.length) {
+      out += ' ' + stats.join(',');
+    }
+    out += '\n';
+  }
 
-  return result;
+  const fs = require('fs');
+  fs.writeFileSync(`out${testNo++}.txt`, out);
+
+  if (!isTest) {
+    fs.writeFileSync('decisions.txt', decisionLog);
+  }
+
+  return round * units.E.concat(units.G).reduce((accum, unit) => accum + unit.hp, 0);
 }
