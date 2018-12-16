@@ -143,8 +143,10 @@ module.exports = (input, isPart2, isTest) => {
         let nextY = currentPath.y + step.y;
 
         let key = (nextX << 16) + nextY;
-        if (visited.has(key) && 
-          (visited.get(key).length < nextPath.weights.length || visited.get(key) >= nextPath.weights)) {
+        let previousWeight = visited.get(key);
+        if (previousWeight && 
+          (previousWeight.length < nextPath.weights.length || 
+            (previousWeight.length === nextPath.weights.length && previousWeight > nextPath.weights))) {
           // we've already been here on a higher priority path
           continue;
         }
