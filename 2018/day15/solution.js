@@ -100,7 +100,7 @@ module.exports = (input, isPart2, isTest) => {
       score: distance(unit, target),
       weights: ''
     }];
-    let visited = new Set([(unit.x << 16) + unit.y]);
+    let visited = new Map([[(unit.x << 16) + unit.y, '']]);
 
     const queuePath = (path) => {
       let i = 0;
@@ -143,11 +143,12 @@ module.exports = (input, isPart2, isTest) => {
         let nextY = currentPath.y + step.y;
 
         let key = (nextX << 16) + nextY;
-        if (visited.has(key)) {
+        if (visited.has(key) && 
+          (visited.get(key).length < nextPath.weights.length || visited.get(key) >= nextPath.weights)) {
           // we've already been here on a higher priority path
           continue;
         }
-        visited.add(key);
+        visited.set(key, nextPath.weights);
         nextPath.steps.push(step);
 
         if (nextX === target.x && nextY === target.y) {
