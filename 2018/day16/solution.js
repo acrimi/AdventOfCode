@@ -102,7 +102,7 @@ module.exports = (input, isPart2, isTest) => {
         if (matches.length === 1) {
           let opcode = matches[0];
           for (let id2 in opcodeIds) {
-            if (id2 !== id) {
+            if (id2 !== id && opcodeIds[id2].length > 1) {
               opcodeIds[id2] = opcodeIds[id2].filter(fn => fn !== opcode);
             }
           }
