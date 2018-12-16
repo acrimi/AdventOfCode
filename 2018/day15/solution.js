@@ -1,13 +1,27 @@
 let testNo = 1;
 module.exports = (input, isPart2, isTest) => {
   if (!isPart2) {
-    return run(3, input, false, true);
+    return run(3, input);
   } else {
-    return 0;
+    let lower = 3;
+    let upper = 100;
+    let result;
+
+    while (upper - lower > 1) {
+      let power = lower + Math.ceil((upper - lower)/2);
+      let outcome = run(power, input, true);
+      if (outcome !== false) {
+        upper = power;
+        result = outcome;
+      } else {
+        lower = power;
+      }
+    }
+    return result;
   }
 }
 
-function run(elfPower, input, isPart2, isTest) {
+function run(elfPower, input, isPart2) {
   const empty = '.';
   const goblin = 'G';
   const elf = 'E';
@@ -196,13 +210,16 @@ function run(elfPower, input, isPart2, isTest) {
 
   function attackTarget(unit, target) {
     if (distance(unit, target) > 1) {
-      return;
+      return false;
     }
     target.hp -= unit.attackPower;
     if (target.hp <= 0) {
       units[target.type].splice(units[target.type].indexOf(target), 1);
       arena[target.y][target.x] = empty;
+      return true;
     }
+
+    return false;
   }
 
   let out = '';
@@ -240,7 +257,10 @@ function run(elfPower, input, isPart2, isTest) {
           }
 
           moveTowardTarget(unit, target.path);
-          attackTarget(unit, target.unit);
+          let ded = attackTarget(unit, target.unit);
+          if (isPart2 && ded && target.unit.type === elf) {
+            return false;
+          }
 
           updated.add(unit);
         }
@@ -268,10 +288,6 @@ function run(elfPower, input, isPart2, isTest) {
 
   const fs = require('fs');
   fs.writeFileSync(`out${testNo++}.txt`, out);
-
-  if (!isTest) {
-    fs.writeFileSync('decisions.txt', decisionLog);
-  }
 
   return round * units.E.concat(units.G).reduce((accum, unit) => accum + unit.hp, 0);
 }
