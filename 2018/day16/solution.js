@@ -93,25 +93,25 @@ module.exports = (input, isPart2, isTest) => {
     }
   }
 
-  let unresolved = true;
-  while (unresolved) {
-    unresolved = false;
-    for (let id in opcodeIds) {
-      let matches = opcodeIds[id];
-      if (matches.length === 1) {
-        let opcode = matches[0];
-        for (let id2 in opcodeIds) {
-          if (id2 !== id) {
-            opcodeIds[id2] = opcodeIds[id2].filter(fn => fn !== opcode);
+  if (isPart2) {
+    let unresolved = true;
+    while (unresolved) {
+      unresolved = false;
+      for (let id in opcodeIds) {
+        let matches = opcodeIds[id];
+        if (matches.length === 1) {
+          let opcode = matches[0];
+          for (let id2 in opcodeIds) {
+            if (id2 !== id) {
+              opcodeIds[id2] = opcodeIds[id2].filter(fn => fn !== opcode);
+            }
           }
+        } else {
+          unresolved = true;
         }
-      } else {
-        unresolved = true;
       }
     }
-  }
 
-  if (isPart2) {
     let registers = {};
     for (; i < input.length; i++) {
       const [_, opcodeId, a, b, c] = input[i].match(/(\d+) (\d+) (\d+) (\d+)/) || [];
