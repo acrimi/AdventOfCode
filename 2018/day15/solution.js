@@ -109,7 +109,7 @@ module.exports = (input, isPart2, isTest) => {
         if (path2.score > path.score) {
           break;
         } else if (path2.score === path.score) {
-          let minLength = Math.min(path2.weights, path.weights);
+          let minLength = Math.min(path2.weights.length, path.weights.length);
           if (path2.weights.substring(0, minLength) < path.weights.substring(0, minLength)) {
             break;
           }
