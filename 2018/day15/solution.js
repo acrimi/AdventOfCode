@@ -90,12 +90,12 @@ module.exports = (input, isPart2, isTest) => {
   function findShortestPath(unit, target) {
     let availablePaths = [{
       steps: [],
-      visited: new Set([(unit.x << 16) + unit.y]),
       x: unit.x,
       y: unit.y,
       score: distance(unit, target),
       weights: ''
     }];
+    let visited = new Set([(unit.x << 16) + unit.y]);
 
     const queuePath = (path) => {
       let i = 0;
@@ -129,18 +129,17 @@ module.exports = (input, isPart2, isTest) => {
         let step = possibleSteps[i];
         let nextPath = {
           steps: [...currentPath.steps],
-          visited: new Set(currentPath.visited),
           x: currentPath.x + step.x,
           y: currentPath.y + step.y,
           weights: currentPath.weights + step.weight
         };
 
         let key = (nextPath.x << 16) + nextPath.y;
-        if (nextPath.visited.has(key)) {
-          // no backtracking
+        if (visited.has(key)) {
+          // we've already been here on a higher priority path
           continue;
         }
-        nextPath.visited.add(key);
+        visited.add(key);
         nextPath.steps.push(step);
 
         if (nextPath.x === target.x && nextPath.y === target.y) {
