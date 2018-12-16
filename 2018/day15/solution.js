@@ -49,6 +49,10 @@ module.exports = (input, isPart2, isTest) => {
     return Math.abs(unit1.x - unit2.x) + Math.abs(unit1.y - unit2.y);
   }
 
+  function isHigherOrder(pos1, pos2) {
+    return pos1.y < pos2.y || (pos1.y === pos2.y && pos1.x < pos2.x);
+  }
+
   function findNearestEnemy(unit) {
     let enemies = units[enemy[unit.type]];
 
@@ -72,7 +76,8 @@ module.exports = (input, isPart2, isTest) => {
             shortestPath = path;
             nearestEnemy = enemy;
           }
-        } else if (path.weights > shortestPath.weights) {
+        } else if (isHigherOrder(path, shortestPath) ||
+          (path.x === shortestPath.x && path.y === shortestPath.y && path.weights > shortestPath.weights)) {
           shortestPath = path;
           nearestEnemy = enemy;
         }
@@ -129,12 +134,15 @@ module.exports = (input, isPart2, isTest) => {
         let step = possibleSteps[i];
         let nextPath = {
           steps: [...currentPath.steps],
-          x: currentPath.x + step.x,
-          y: currentPath.y + step.y,
+          x: currentPath.x,
+          y: currentPath.y,
           weights: currentPath.weights + step.weight
         };
 
-        let key = (nextPath.x << 16) + nextPath.y;
+        let nextX = currentPath.x + step.x;
+        let nextY = currentPath.y + step.y;
+
+        let key = (nextX << 16) + nextY;
         if (visited.has(key)) {
           // we've already been here on a higher priority path
           continue;
@@ -142,13 +150,19 @@ module.exports = (input, isPart2, isTest) => {
         visited.add(key);
         nextPath.steps.push(step);
 
-        if (nextPath.x === target.x && nextPath.y === target.y) {
-          completedPath = nextPath;
+        if (nextX === target.x && nextY === target.y) {
+          if (!completedPath ||
+            isHigherOrder(nextPath, completedPath) ||
+            (nextPath.x === completedPath.x && nextPath.y === completedPath.y && nextPath.weights > completedPath.weights)) {
+            completedPath = nextPath;
+          }
           continue;
         }
-        if (!isCellPassable(nextPath.x, nextPath.y)) {
+        if (!isCellPassable(nextX, nextY)) {
           continue;
         }
+        nextPath.x = nextX;
+        nextPath.y = nextY;
         nextPath.score = nextPath.steps.length + distance(nextPath, target);
         queuePath(nextPath);
       }
