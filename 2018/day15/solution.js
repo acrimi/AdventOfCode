@@ -63,16 +63,16 @@ module.exports = (input, isPart2, isTest) => {
       if (!path) {
         continue;
       }
-      if (!shortestPath || path.length < shortestPath.length) {
+      if (!shortestPath || path.steps.length < shortestPath.steps.length) {
         shortestPath = path;
         nearestEnemy = enemy;
-      } else if (path.length === shortestPath.length) {
-        if (path.length === 1) {
-          if (enemy.hp < nearestEnemy.hp) {
+      } else if (path.steps.length === shortestPath.steps.length) {
+        if (path.steps.length === 1 || (path.steps.length === 2 && path.steps[0] === shortestPath.steps[0])) {
+          if (enemy.hp < nearestEnemy.hp || (enemy.hp === nearestEnemy.hp && path.weights > shortestPath.weights)) {
             shortestPath = path;
             nearestEnemy = enemy;
           }
-        } else if (path[0].weight > shortestPath[0].weight) {
+        } else if (path.weights > shortestPath.weights) {
           shortestPath = path;
           nearestEnemy = enemy;
         }
@@ -81,7 +81,7 @@ module.exports = (input, isPart2, isTest) => {
 
     if (nearestEnemy) {
       return {
-        path: shortestPath,
+        path: shortestPath.steps,
         unit: nearestEnemy
       };
     }
@@ -155,7 +155,7 @@ module.exports = (input, isPart2, isTest) => {
       }
     }
 
-    return completedPath && completedPath.steps;
+    return completedPath;
   }
 
   function moveTowardTarget(unit, path) {
