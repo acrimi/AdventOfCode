@@ -1,4 +1,3 @@
-let testNo = 1;
 module.exports = (input, isPart2, isTest) => {
   if (!isPart2) {
     return run(3, input);
@@ -222,26 +221,9 @@ function run(elfPower, input, isPart2) {
     return false;
   }
 
-  let out = '';
   let round = 0;
   main:
   while (true) {
-    out += round + '\n';
-    for (let row of arena) {
-      let stats = [];
-      for (let cell of row) {
-        out += cell.type || cell;
-        if (cell.type) {
-          stats.push(`${cell.type}(${cell.hp})`);
-        }
-      }
-      if (stats.length) {
-        out += ' ' + stats.join(',');
-      }
-      out += '\n';
-    }
-    out += '\n';
-
     let updated = new Set();
     for (let y = 1; y < arena.length - 1; y++) {
       for (let x = 1; x < arena[y].length - 1; x++) {
@@ -269,25 +251,6 @@ function run(elfPower, input, isPart2) {
 
     round++;
   }
-
-  
-  out += 'END\n';
-  for (let row of arena) {
-    let stats = [];
-    for (let cell of row) {
-      out += cell.type || cell;
-      if (cell.type) {
-        stats.push(`${cell.type}(${cell.hp})`);
-      }
-    }
-    if (stats.length) {
-      out += ' ' + stats.join(',');
-    }
-    out += '\n';
-  }
-
-  const fs = require('fs');
-  fs.writeFileSync(`out${testNo++}.txt`, out);
 
   return round * units.E.concat(units.G).reduce((accum, unit) => accum + unit.hp, 0);
 }
