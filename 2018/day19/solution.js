@@ -68,20 +68,42 @@ module.exports = (input, isPart2, isTest) => {
     }
   }
 
-  let registers = [isPart2 ? 1 : 0, 0, 0, 0, 0];
-  let [_, ipRegister] = input[0].match(/#ip (\d+)/);
+  // Useful for test case and part 1, too slow for part 2
+  function bruteForce() {
+    let registers = [isPart2 ? 1 : 0, 0, 0, 0, 0];
+    let [_, ipRegister] = input[0].match(/#ip (\d+)/);
+  
+    let ip = registers[ipRegister];
+    while (ip >= 0 && ip < input.length - 1) {
+      registers[ipRegister] = ip;
+      let instruction = input[ip + 1];
+      let [_, cmd, a, b, c] = instruction.match(/(\w+) (\d+) (\d+) (\d+)/);
+      let fn = commands[cmd];
+      fn(registers, +a, +b, +c);
+      ip = registers[ipRegister] + 1;
+    }
 
-  let ip = registers[ipRegister];
-  while (ip >= 0 && ip < input.length - 1) {
-    registers[ipRegister] = ip;
-    let instruction = input[ip + 1];
-    let [_, cmd, a, b, c] = instruction.match(/(\w+) (\d+) (\d+) (\d+)/);
-    let fn = commands[cmd];
-    fn(registers, +a, +b, +c);
-    ip = registers[ipRegister] + 1;
+    return registers[0];
   }
 
-  result = registers[0];
+  // the actual functionality of the input, doesn't apply to test case
+  function sumFactors() {
+    let number = isPart2 ? 10551389 : 989;
+    let factors = [];
+    
+    for (let i = 1; i <= Math.sqrt(number); i++) {
+      if (number % i === 0) {
+        factors.push(i);
+        if (i !== number / i) {
+          factors.push(number / i);
+        }
+      }
+    }
+
+    return factors.reduce((accum, i) => accum + i, 0);
+  }
+
+  result = isTest ? bruteForce() : sumFactors();
 
   return result;
 }
