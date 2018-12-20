@@ -1,4 +1,3 @@
-let testNo = 1;
 module.exports = (input, isPart2, isTest) => {
   let result = 0;
 
@@ -37,10 +36,11 @@ module.exports = (input, isPart2, isTest) => {
     }
   }
 
-  function walkPath(path, offset) {
+  function walkPath(path) {
     if (path.offset >= input.length) {
       return null;
     }
+    
     let nextStep = input[path.offset];
     if (nextStep === '(') {
       let branch = {
@@ -53,35 +53,27 @@ module.exports = (input, isPart2, isTest) => {
       branch.root.branches.push(branch);
       path = branch;
     } else if (nextStep === ')') {
+      path.root.offset = path.offset;
+      path = path.root;
       if (path.root) {
-        path.root.offset = path.offset;
-        path = path.root;
-        if (path.root) {
-          path.root.branches.splice(path.root.branches.indexOf(path), 1);
+        path.root.branches.splice(path.root.branches.indexOf(path), 1);
+      }
+      for (let branch of path.branches) {
+        branch.root = path.root;
+        if (branch.root) {
+          branch.root.branches.push(branch);
         }
-        for (let branch of path.branches) {
-          branch.root = path.root;
-          if (branch.root) {
-            branch.root.branches.push(branch);
-          }
-        }
-      } else {
-        console.log('closing branch without root!');
       }
     } else if (nextStep === '|') {
-      if (path.root) {
-        let branch = {
-          x: path.root.x,
-          y: path.root.y,
-          offset: path.offset,
-          root: path.root
-        };
-        branch.root.branches = (branch.root.branches || []);
-        branch.root.branches.push(branch);
-        path = branch;
-      } else {
-        console.log('branch without root!');
-      }
+      let branch = {
+        x: path.root.x,
+        y: path.root.y,
+        offset: path.offset,
+        root: path.root
+      };
+      branch.root.branches = (branch.root.branches || []);
+      branch.root.branches.push(branch);
+      path = branch;
     } else {
       let currentDistance = getMinDistance(path.x, path.y);
       let transform = transforms[nextStep];
@@ -103,9 +95,12 @@ module.exports = (input, isPart2, isTest) => {
   }
 
   for (let distance of Object.values(rooms)) {
-    result = Math.max(distance, result);
+    if (!isPart2) {
+      result = Math.max(distance, result);
+    } else if (distance >= 1000) {
+      result++;
+    }
   }
 
-  testNo++;
   return result;
 }
