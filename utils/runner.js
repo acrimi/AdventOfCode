@@ -55,7 +55,7 @@ async function runTests(processor, tests, options, isPart2, fileSuffix) {
       testInput = processInput(testInput, options);
 
       const start = Date.now();
-      const res = processor(testInput, isPart2, true);
+      const res = processor(testInput, isPart2, true, i + 1);
       const runTime = Date.now() - start;
       logResult(res, isPart2 ? 2 : 1, true, i + 1, options.profile && runTime);
     }
@@ -74,7 +74,7 @@ async function runTests(processor, tests, options, isPart2, fileSuffix) {
       }
 
       const start = Date.now();
-      const res = processor(testInput, isPart2, true);
+      const res = processor(testInput, isPart2, true, i + 1);
       const runTime = Date.now() - start;
       if (expect != null) {
         passing = passing && res == expect;
