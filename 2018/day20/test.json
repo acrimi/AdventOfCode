@@ -1,0 +1,24 @@
+{
+  "part1": [
+    {
+      "input": "^WNE$",
+      "expect": "3"
+    },
+    {
+      "input": "^ENWWW(NEEE|SSE(EE|N))$",
+      "expect": "10"
+    },
+    {
+      "input": "^ENNWSWW(NEWS|)SSSEEN(WNSE|)EE(SWEN|)NNN$",
+      "expect": "18"
+    },
+    {
+      "input": "^ESSWWN(E|NNENN(EESS(WNSE|)SSS|WWWSSSSE(SW|NNNE)))$",
+      "expect": "23"
+    },
+    {
+      "input": "^WSSEESWWWNW(S|NENNEEEENN(ESSSSW(NWSW|SSEN)|WSWWN(E|WWS(E|SS))))$",
+      "expect": "31"
+    }
+  ]
+}
