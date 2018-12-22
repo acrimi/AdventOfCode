@@ -1,0 +1,8 @@
+{
+  "part1": [
+    {
+      "input": "depth: 510\ntarget: 10,10",
+      "expect": "114"
+    }
+  ]
+}
