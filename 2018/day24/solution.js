@@ -1,6 +1,23 @@
 module.exports = (input, isPart2, isTest, testNumber) => {
   let result = 0;
 
+  if (!isPart2) {
+    result = runFight(input, false, isTest, 0);
+  } else {
+    if (isTest) {
+      result = runFight(input, true, true, 1570);
+    } else {
+      let boost = 0;
+      while (!result) {
+        result = runFight(input, true, false, boost++);
+      }
+    }
+  }
+
+  return result;
+}
+
+function runFight(input, isPart2, isTest, boost) {
   const armies = {
     immune: {
       groups: [],
@@ -42,7 +59,7 @@ module.exports = (input, isPart2, isTest, testNumber) => {
       hp: +hp,
       weaknesses: weaknesses ? weaknesses.split(', ') : [],
       immunities: immunities ? immunities.split(', ') : [],
-      attackDamage: +damage,
+      attackDamage: +damage + (type === 'immune' ? boost : 0),
       attackType: attackType,
       initiative: +initiative
     };
@@ -52,8 +69,8 @@ module.exports = (input, isPart2, isTest, testNumber) => {
     armies[type].totalUnits += group.units;
   }
 
-  let attackSort = [...armies.immune.groups, ... armies.infection.groups].sort((a, b) => b.initiative - a.initiative);
-  let targetSort = [...armies.immune.groups, ... armies.infection.groups];
+  let attackSort = [...armies.immune.groups, ...armies.infection.groups].sort((a, b) => b.initiative - a.initiative);
+  let targetSort = [...armies.immune.groups, ...armies.infection.groups];
   function sortTargeting() {
     targetSort.sort((a, b) => {
       let result = b.effectivePower - a.effectivePower;
@@ -74,6 +91,7 @@ module.exports = (input, isPart2, isTest, testNumber) => {
     return damage;
   }
 
+  let lastCount = armies.immune.totalUnits + armies.infection.totalUnits;
   while (armies.immune.totalUnits > 0 && armies.infection.totalUnits > 0) {
     // targeting
     let targets = new Set();
@@ -92,7 +110,7 @@ module.exports = (input, isPart2, isTest, testNumber) => {
       });
 
       for (let enemyGroup of enemyGroups) {
-        if (!targets.has(enemyGroup.id)) {
+        if (!targets.has(enemyGroup.id) && getDamage(group, enemyGroup) !== 0) {
           group.target = enemyGroup;
           targets.add(enemyGroup.id);
           break;
@@ -117,9 +135,18 @@ module.exports = (input, isPart2, isTest, testNumber) => {
         }
       }
     }
+
+    let newCount = armies.immune.totalUnits + armies.infection.totalUnits;
+    if (lastCount === newCount) {
+      // stalemate
+      return false;
+    }
+    lastCount = newCount;
   }
 
-  result = armies.immune.totalUnits + armies.infection.totalUnits;
+  if (isPart2 && armies.immune.totalUnits === 0) {
+    return false;
+  }
 
-  return result;
+  return armies.immune.totalUnits + armies.infection.totalUnits;
 }
