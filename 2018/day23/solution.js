@@ -3,7 +3,6 @@ module.exports = (input, isPart2, isTest, testNumber) => {
 
   const nanobots = [];
   let strongest;
-  const minOverlap = isTest ? 0 : 986;
   const xRange = {
     min: Number.MAX_SAFE_INTEGER,
     max: 0
@@ -107,10 +106,13 @@ module.exports = (input, isPart2, isTest, testNumber) => {
       areas.splice(i, 0, area);
     }
 
-    function boundsOverlap(bounds1, bounds2) {
-      return bounds1.right > bounds2.left && bounds2.right > bounds1.left &&
-        bounds1.top > bounds2.bottom && bounds2.top > bounds1.bottom &&
-        bounds1.back > bounds2.front && bounds2.back > bounds1.front;
+    function botOverlaps(bot, bounds) {
+      // Optimistic overlap check, better to include too many bots than not enough
+      let centerDistance = Math.abs(bot.x - bounds.center.x) + Math.abs(bot.y - bounds.center.y) +
+        Math.abs(bot.z - bounds.center.z);
+      let boundsDiagonal = (bounds.right - bounds.center.x) + (bounds.top - bounds.center.y) +
+        (bounds.back - bounds.center.z);
+      return centerDistance <= bot.r + boundsDiagonal;
     }
 
     function splitArea(area) {
@@ -149,7 +151,7 @@ module.exports = (input, isPart2, isTest, testNumber) => {
             child.centerDistance = Math.abs(child.center.x) + Math.abs(child.center.y) + Math.abs(child.center.z);
 
             for (let nanobot of area.overlaps) {
-              if (boundsOverlap(nanobot.aabb, child)) {
+              if (botOverlaps(nanobot, child)) {
                 child.overlaps.push(nanobot);
               }
             }
