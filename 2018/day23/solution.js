@@ -3,15 +3,16 @@ module.exports = (input, isPart2, isTest, testNumber) => {
 
   const nanobots = [];
   let strongest;
-  const xAxis = {
+  const minOverlap = isTest ? 0 : 986;
+  const xRange = {
     min: Number.MAX_SAFE_INTEGER,
     max: 0
   };
-  const yAxis = {
+  const yRange = {
     min: Number.MAX_SAFE_INTEGER,
     max: 0
   };
-  const zAxis = {
+  const zRange = {
     min: Number.MAX_SAFE_INTEGER,
     max: 0
   };
@@ -24,14 +25,22 @@ module.exports = (input, isPart2, isTest, testNumber) => {
       z: +z,
       r: +r
     };
+    nanobot.aabb = {
+      left: nanobot.x - nanobot.r,
+      right: nanobot.x + nanobot.r + 1,
+      bottom: nanobot.y - nanobot.r,
+      top: nanobot.y + nanobot.r + 1,
+      front: nanobot.z - nanobot.r,
+      back: nanobot.z + nanobot.r + 1
+    };
     nanobots.push(nanobot);
 
-    xAxis.min = Math.min(xAxis.min, nanobot.x);
-    xAxis.max = Math.max(xAxis.max, nanobot.x);
-    yAxis.min = Math.min(yAxis.min, nanobot.y);
-    yAxis.max = Math.max(yAxis.max, nanobot.y);
-    zAxis.min = Math.min(zAxis.min, nanobot.z);
-    zAxis.max = Math.max(zAxis.max, nanobot.z);
+    xRange.min = Math.min(xRange.min, nanobot.aabb.left);
+    xRange.max = Math.max(xRange.max, nanobot.aabb.right);
+    yRange.min = Math.min(yRange.min, nanobot.aabb.bottom);
+    yRange.max = Math.max(yRange.max, nanobot.aabb.top);
+    zRange.min = Math.min(zRange.min, nanobot.aabb.front);
+    zRange.max = Math.max(zRange.max, nanobot.aabb.back);
 
     if (!strongest || strongest.r < nanobot.r) {
       strongest = nanobot;
@@ -58,30 +67,143 @@ module.exports = (input, isPart2, isTest, testNumber) => {
       }
     }
   } else {
-    let maxCount = 0;
-    let distanceFromOrigin = Number.MAX_SAFE_INTEGER;
-    for (let x2 = xAxis.min; x2 <= xAxis.max; x2++) {
-      for (let y2 = yAxis.min; y2 <= yAxis.max; y2++) {
-        for (let z2 = zAxis.min; z2 <= zAxis.max; z2++) {
-          let count = 0;
-          for (let nanobot of nanobots) {
-            if (inRange(x2, y2, z2, nanobot)) {
-              count++;
-            }
-          }
+    let bounds = {
+      left: xRange.min,
+      right: xRange.max,
+      width: xRange.max - xRange.min,
+      bottom: yRange.min,
+      top: yRange.max,
+      height: yRange.max - yRange.min,
+      front: zRange.min,
+      back: zRange.max,
+      depth: zRange.max - zRange.min,
+      overlaps: [...nanobots]
+    };
+    bounds.volume = bounds.width * bounds.height * bounds.depth;
+    bounds.center = {
+      x: bounds.left + bounds.width/2,
+      y: bounds.bottom + bounds.height/2,
+      z: bounds.front + bounds.depth/2
+    };
+    bounds.centerDistance = Math.abs(bounds.center.x) + Math.abs(bounds.center.y) + Math.abs(bounds.center.z);
 
-          if (count === maxCount) {
-            let dist = Math.abs(x2) + Math.abs(y2) + Math.abs(z2);
-            distanceFromOrigin = Math.min(dist, distanceFromOrigin);
-          } else if (count > maxCount) {
-            maxCount = count;
-            distanceFromOrigin = Math.abs(x2) + Math.abs(y2) + Math.abs(z2);
+    const areas = [bounds];
+    
+    function queueArea(area) {
+      let i = 0;
+      for (; i < areas.length; i++) {
+        const other = areas[i];
+        if (area.overlaps.length > other.overlaps.length) {
+          break;
+        } else if (area.overlaps.length === other.overlaps.length) {
+          if (area.volume < other.volume) {
+            break;
+          } else if (area.volume === other.volume && area.centerDistance < other.centerDistance) {
+            break;
           }
         }
       }
+
+      areas.splice(i, 0, area);
     }
 
-    result = distanceFromOrigin;
+    function boundsOverlap(bounds1, bounds2) {
+      return bounds1.right > bounds2.left && bounds2.right > bounds1.left &&
+        bounds1.top > bounds2.bottom && bounds2.top > bounds1.bottom &&
+        bounds1.back > bounds2.front && bounds2.back > bounds1.front;
+    }
+
+    function splitArea(area) {
+      let children = [];
+      let childWidth = [Math.floor(area.width/2)];
+      childWidth.push(area.width - childWidth[0]);
+      let childHeight = [Math.floor(area.height/2)];
+      childHeight.push(area.height - childHeight[0]);
+      let childDepth = [Math.floor(area.depth/2)];
+      childDepth.push(area.depth - childDepth[0]);
+
+      for (let i = 0; i < 2; i++) {
+        let dx = i * childWidth[0];
+        for (let j = 0; j < 2; j++) {
+          let dy = j * childHeight[0];
+          for (let k = 0; k < 2; k++) {
+            let dz = k * childDepth[0];
+            let child = {
+              left: area.left + dx,
+              right: area.left + dx + childWidth[i],
+              width: childWidth[i],
+              bottom: area.bottom + dy,
+              top: area.bottom + dy + childHeight[j],
+              height: childHeight[j],
+              front: area.front + dz,
+              back: area.front + dz + childDepth[k],
+              depth: childDepth[k],
+              overlaps: []
+            };
+            child.volume = child.width * child.height * child.depth;
+            child.center = {
+              x: child.left + child.width/2,
+              y: child.bottom + child.height/2,
+              z: child.front + child.depth/2
+            };
+            child.centerDistance = Math.abs(child.center.x) + Math.abs(child.center.y) + Math.abs(child.center.z);
+
+            for (let nanobot of area.overlaps) {
+              if (boundsOverlap(nanobot.aabb, child)) {
+                child.overlaps.push(nanobot);
+              }
+            }
+
+            if (child.overlaps.length > resultCount) {
+              children.push(child);
+            }
+          }
+        }
+      }
+
+      return children;
+    }
+
+    let resultCount = 0;
+    result = Number.MAX_SAFE_INTEGER;
+    while (areas.length) {
+      let area = areas.shift();
+      if (area.volume < 10000) {
+        // iterate over cells to find candidates
+        let bestCount = 0;
+        let bestDistance = Number.MAX_SAFE_INTEGER;
+        for (let x = area.left; x < area.right; x++) {
+          for (let y = area.bottom; y < area.top; y++) {
+            for (let z = area.front; z < area.back; z++) {
+              let count = 0;
+              for (let nanobot of area.overlaps) {
+                if (inRange(x, y, z, nanobot)) {
+                  count++;
+                }
+              }
+              if (count > bestCount) {
+                bestCount = count;
+                bestDistance = Math.abs(x) + Math.abs(y) + Math.abs(z);
+              } else if (count === bestCount) {
+                bestDistance = Math.min(bestDistance, Math.abs(x) + Math.abs(y) + Math.abs(z));
+              }
+            }
+          }
+        }
+
+        if (bestCount > resultCount) {
+          resultCount = bestCount;
+          result = bestDistance;
+        } else if (bestCount === resultCount) {
+          result = Math.min(result, bestDistance);
+        }
+      } else {
+        let children = splitArea(area);
+        for (let child of children) {
+          queueArea(child);
+        }
+      }
+    }
   }
 
   return result;
