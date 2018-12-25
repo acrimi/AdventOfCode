@@ -68,12 +68,7 @@ module.exports = (input, isPart2, isTest, testNumber) => {
       distance: target.x + target.y,
       gear: 'torch'
     }];
-    const visited = {
-      0: {
-        time: 0,
-        gear: 'torch'
-      }
-    };
+    const visited = {};
 
     function queuePosition(position) {
       let i = 0;
@@ -89,11 +84,7 @@ module.exports = (input, isPart2, isTest, testNumber) => {
       const position = positions.shift();
       if (position.x === target.x && position.y === target.y) {
         result = position.time;
-        if (isTest) {
-          break;
-        } else {
-          console.log(result);
-        }
+        break;
       }
 
       const moves = [
@@ -104,8 +95,7 @@ module.exports = (input, isPart2, isTest, testNumber) => {
       ];
 
       for (let move of moves) {
-        const posKey = (move.x << 16) + move.y;
-        if (move.x < 0 || move.y < 0 || move.x > target.x * 1.5 || move.y > target.y * 1.5) {
+        if (move.x < 0 || move.y < 0) {
           continue;
         }
 
@@ -120,28 +110,24 @@ module.exports = (input, isPart2, isTest, testNumber) => {
             move.gear = gearList[0];
           } else if (currentGearList.includes(gearList[1])) {
             move.gear = gearList[1];
+          } else {
+            continue;
           }
         } else {
           move.gear = position.gear;
         }
 
         if (move.x === target.x && move.y === target.y && move.gear !== 'torch') {
+          move.gear = 'torch';
           move.time += 7;
         }
-        
-        if (visited[posKey]) {
-          if (visited[posKey].gear === move.gear) {
-            if (visited[posKey].time <= move.time) {
-              continue;
-            }
-          } else if (visited[posKey].time + 7 <= move.time) {
-            continue;
-          }
+
+        let visitedKey = move.gear + ((move.x << 16) + move.y);
+        if (visited[visitedKey] != null && visited[visitedKey] <= move.time) {
+          continue;
         } else {
-          visited[posKey] = {};
+          visited[visitedKey] = move.time;
         }
-        visited[posKey].time = move.time;
-        visited[posKey].gear = move.gear;
 
         move.cost = move.time + move.distance;
 
