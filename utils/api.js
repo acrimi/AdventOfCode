@@ -35,7 +35,7 @@ exports.getInput = (year, day) => {
           console.log('Unable to get input, please set your session token in ./session.txt or AOC_SESSION');
           process.exit();
         }
-        if (input.trim() == '404 Not Found') {
+        if (input.trim() == '404 Not Found' || input.includes('Please don\'t repeatedly request this endpoint before it unlocks')) {
           console.log('Input not available');
           process.exit();
         }
