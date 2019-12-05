@@ -112,6 +112,9 @@ exports.run = async (options) => {
   }
 
   if (part !== 2) {
+    if (Array.isArray(input)) {
+      input = input.concat([]);
+    }
     const start = Date.now();
     const answer = processor(input);
     const runTime = Date.now() - start;
