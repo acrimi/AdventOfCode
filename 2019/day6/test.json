@@ -1,0 +1,14 @@
+{
+  "part1": [
+    {
+      "input": "COM)B\nB)C\nC)D\nD)E\nE)F\nB)G\nG)H\nD)I\nE)J\nJ)K\nK)L",
+      "expect": "42"
+    }
+  ],
+  "part2": [
+    {
+      "input": "COM)B\nB)C\nC)D\nD)E\nE)F\nB)G\nG)H\nD)I\nE)J\nJ)K\nK)L\nK)YOU\nI)SAN",
+      "expect": "4"
+    }
+  ]
+}
