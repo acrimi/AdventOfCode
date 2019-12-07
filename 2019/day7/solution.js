@@ -1,4 +1,4 @@
-const intcode = require('../intcode');
+const IntcodeComputer = require('../intcode');
 
 module.exports = (input, isPart2, isTest, testNumber) => {
   let result = 0;
@@ -26,7 +26,7 @@ module.exports = (input, isPart2, isTest, testNumber) => {
             phaseSettings.push(e + minPhase);
 
             for (let i = 0; i < numAmplifiers; i++) {
-              amplifiers[i] = new intcode(input);
+              amplifiers[i] = new IntcodeComputer(input);
               amplifierQueues[i] = [phaseSettings[i]];
             }
             amplifierQueues[0].push(0);

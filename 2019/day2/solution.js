@@ -1,18 +1,18 @@
-const intcode = require('../intcode');
+const IntcodeComputer = require('../intcode');
 
 module.exports = (input, isPart2, isTest, testNumber) => {
   let result = 0;
 
   if (!isPart2) {
     if (isTest) {
-      result = intcode.execute(input);
+      result = new IntcodeComputer(input).execute().value;
     } else {
-      result = intcode.execute(input, 12, 2);
+      result = new IntcodeComputer(input, 12, 2).execute().value;
     }
   } else if (isPart2) {
     for (let noun = 0; noun < 99; noun++) {
       for (let verb = 0; verb < 99; verb++) {
-        if (intcode.execute(input, noun, verb) === 19690720) {
+        if (new IntcodeComputer(input, noun, verb).execute().value === 19690720) {
           result = 100 * noun + verb;
         }
       }

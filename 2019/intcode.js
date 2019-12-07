@@ -85,14 +85,11 @@ function * execute(state) {
     }
     const result = fn(state, modes);
     if (result === EXIT) {
-      // console.log('exiting');
       return state.memory[0];
     } else if (result === AWAIT) {
-      // console.log('awaiting');
       yield;
       continue;
     } else if (result != null) {
-      // console.log('output', result);
       yield result;
     }
     state.pointer += stepSizes[code];
@@ -117,7 +114,9 @@ class Computer {
   }
 
   execute(input) {
-    this.state.inputs = this.state.inputs.concat(input);
+    if (input != null) {
+      this.state.inputs = this.state.inputs.concat(input);
+    }
     return this.loop.next();
   }
 }
