@@ -1,3 +1,6 @@
+const AWAIT = 'await';
+const EXIT = 'exit';
+
 const getArg = (argNumber, state, modes) => {
   let arg = state.memory[state.pointer + argNumber];
   if (modes.length < argNumber || modes[modes.length - argNumber] == 0) {
@@ -32,11 +35,15 @@ const opcodes = {
   },
   3: (state) => {
     let arg1 = state.memory[state.pointer + 1];
-    state.memory[arg1] = state.input;
+    if (state.inputs.length === 0) {
+      return AWAIT;
+    }
+    state.memory[arg1] = state.inputs.shift();
   },
   4: (state, modes) => {
     let arg1 = getArg(1, state, modes);
     state.output.push(arg1);
+    return arg1;
   },
   5: (state, modes) => {
     let arg1 = getArg(1, state, modes);
@@ -64,33 +71,55 @@ const opcodes = {
     let destination = state.memory[state.pointer + 3];
     state.memory[destination] = arg1 == arg2 ? 1 : 0;
   },
-  99: () => true
+  99: () => EXIT
 };
 
-module.exports.execute = (memory, noun, verb, input) => {
-  memory = memory.concat([]);
-  if (noun != null && verb != null) {
-    memory[1] = noun;
-    memory[2] = verb;
-  }
-
-  const state = {
-    pointer: 0,
-    memory: memory,
-    input: input,
-    output: []
-  };
-
+function * execute(state) {
   while (true) {
     let code = '' + state.memory[state.pointer];
     const modes = code.substring(0, code.length - 2);
     code = +code.substr(code.length - 2);
     const fn = opcodes[code];
-    if (!fn || fn(state, modes)) {
-      break;
+    if (!fn) {
+      return;
+    }
+    const result = fn(state, modes);
+    if (result === EXIT) {
+      // console.log('exiting');
+      return state.memory[0];
+    } else if (result === AWAIT) {
+      // console.log('awaiting');
+      yield;
+      continue;
+    } else if (result != null) {
+      // console.log('output', result);
+      yield result;
     }
     state.pointer += stepSizes[code];
   }
-
-  return input ? state.output : state.memory[0];
 }
+
+class Computer {
+  constructor(memory, noun, verb) {
+    memory = memory.concat([]);
+    if (noun != null && verb != null) {
+      memory[1] = noun;
+      memory[2] = verb;
+    }
+    this.state = {
+      pointer: 0,
+      memory: memory,
+      inputs: [],
+      output: []
+    }
+
+    this.loop = execute(this.state);
+  }
+
+  execute(input) {
+    this.state.inputs = this.state.inputs.concat(input);
+    return this.loop.next();
+  }
+}
+
+module.exports = Computer;
