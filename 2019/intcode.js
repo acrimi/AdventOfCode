@@ -1,12 +1,20 @@
 const AWAIT = 'await';
 const EXIT = 'exit';
 
-const getArg = (argNumber, state, modes) => {
+const getPosition = (argNumber, state, modes) => {
   let arg = state.memory[state.pointer + argNumber];
   if (modes.length < argNumber || modes[modes.length - argNumber] == 0) {
-    arg = state.memory[arg];
+    return arg;
+  } else if (modes[modes.length - argNumber] == 2) {
+    return arg + state.relativeBase;
   }
-  return arg;
+  return state.pointer + argNumber;
+}
+
+const getArg = (argNumber, state, modes) => {
+  const position = getPosition(argNumber, state, modes);
+  state.memory[position] = state.memory[position] || 0;
+  return state.memory[position];
 };
 
 const stepSizes = {
@@ -17,59 +25,64 @@ const stepSizes = {
   5: 3,
   6: 3,
   7: 4,
-  8: 4
+  8: 4,
+  9: 2
 };
 
 const opcodes = {
   1: (state, modes) => {
-    let arg1 = getArg(1, state, modes);
-    let arg2 = getArg(2, state, modes);
-    let destination = state.memory[state.pointer + 3];
+    const arg1 = getArg(1, state, modes);
+    const arg2 = getArg(2, state, modes);
+    const destination = getPosition(3, state, modes);
     state.memory[destination] = arg1 + arg2;
   },
   2: (state, modes) => {
-    let arg1 = getArg(1, state, modes);
-    let arg2 = getArg(2, state, modes);
-    let destination = state.memory[state.pointer + 3];
+    const arg1 = getArg(1, state, modes);
+    const arg2 = getArg(2, state, modes);
+    const destination = getPosition(3, state, modes);
     state.memory[destination] = arg1 * arg2;
   },
-  3: (state) => {
-    let arg1 = state.memory[state.pointer + 1];
+  3: (state, modes) => {
+    const position = getPosition(1, state, modes);
     if (state.inputs.length === 0) {
       return AWAIT;
     }
-    state.memory[arg1] = state.inputs.shift();
+    state.memory[position] = state.inputs.shift();
   },
   4: (state, modes) => {
-    let arg1 = getArg(1, state, modes);
+    const arg1 = getArg(1, state, modes);
     state.output.push(arg1);
     return arg1;
   },
   5: (state, modes) => {
-    let arg1 = getArg(1, state, modes);
-    let arg2 = getArg(2, state, modes);
+    const arg1 = getArg(1, state, modes);
+    const arg2 = getArg(2, state, modes);
     if (arg1 != 0) {
       state.pointer = arg2 - stepSizes[5];
     }
   },
   6: (state, modes) => {
-    let arg1 = getArg(1, state, modes);
-    let arg2 = getArg(2, state, modes);
+    const arg1 = getArg(1, state, modes);
+    const arg2 = getArg(2, state, modes);
     if (arg1 == 0) {
       state.pointer = arg2 - stepSizes[6];
     }
   },
   7: (state, modes) => {
-    let arg1 = getArg(1, state, modes);
-    let arg2 = getArg(2, state, modes);
-    let destination = state.memory[state.pointer + 3];
+    const arg1 = getArg(1, state, modes);
+    const arg2 = getArg(2, state, modes);
+    const destination = getPosition(3, state, modes);
     state.memory[destination] = arg1 < arg2 ? 1 : 0;
   },
   8: (state, modes) => {
-    let arg1 = getArg(1, state, modes);
-    let arg2 = getArg(2, state, modes);
-    let destination = state.memory[state.pointer + 3];
+    const arg1 = getArg(1, state, modes);
+    const arg2 = getArg(2, state, modes);
+    const destination = getPosition(3, state, modes);
     state.memory[destination] = arg1 == arg2 ? 1 : 0;
+  },
+  9: (state, modes) => {
+    const baseOffset = getArg(1, state, modes);
+    state.relativeBase += baseOffset;
   },
   99: () => EXIT
 };
@@ -105,6 +118,7 @@ class Computer {
     }
     this.state = {
       pointer: 0,
+      relativeBase: 0,
       memory: memory,
       inputs: [],
       output: []
@@ -118,6 +132,10 @@ class Computer {
       this.state.inputs = this.state.inputs.concat(input);
     }
     return this.loop.next();
+  }
+
+  getOutputs() {
+    return this.state.output;
   }
 }
 
