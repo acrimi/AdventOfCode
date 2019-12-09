@@ -127,11 +127,19 @@ class Computer {
     this.loop = execute(this.state);
   }
 
-  execute(input) {
+  execute(input, continuous) {
     if (input != null) {
       this.state.inputs = this.state.inputs.concat(input);
     }
-    return this.loop.next();
+    if (!continuous) {
+      return this.loop.next();
+    } else {
+      let output;
+      do {
+        output = this.loop.next();
+      } while (output.value != null && !output.done);
+      return output;
+    }
   }
 
   getOutputs() {

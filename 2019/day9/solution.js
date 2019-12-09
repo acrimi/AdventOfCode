@@ -5,11 +5,7 @@ module.exports = (input, isPart2, isTest, testNumber) => {
 
   const comp = new IntcodeComputer(input);
   let inputVal = isTest ? null : isPart2 ? 2 : 1;
-  let output;
-  do {
-    output = comp.execute(inputVal);
-    inputVal = null;
-  } while (!output.done);
+  comp.execute(inputVal, true);
 
   const outputs = comp.getOutputs();
   if (!isTest && outputs.length > 1) {
