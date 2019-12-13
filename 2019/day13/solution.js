@@ -18,11 +18,9 @@ module.exports = (input, isPart2, isTest, testNumber) => {
     'O'  // ball
   ]
   const board = [];
-  let paddleY = 0;
-  let gameOver = false;
+  let paddleX = 0;
+  let ballX = 0;
   let score = 0;
-  const validatedInputs = [];
-  const pendingInputs = [];
 
   const main = () => {
     const res = comp.execute(null, true);
@@ -43,80 +41,24 @@ module.exports = (input, isPart2, isTest, testNumber) => {
           const row = board[y] = board[y] || [];
           row[x] = tileSymbols[id];
           if (id === paddleTile) {
-            paddleY = y;
+            paddleX = x;
           } else if (id === ballTile) {
-            if (y >= paddleY) {
-              gameOver = true;
-            }
+            ballX = x;
           }
         }
       }
     }
 
-    if (isPart2) {
-      console.log(board.map(r => r.join('')).join('\n'));
-      console.log('SCORE:', score);
-    }
-
     return res.done;
-  }
-
-  const reset = () => {
-    gameOver = false;
-    pendingInputs.splice(0, pendingInputs.length);
-    comp.reset(input);
-    comp.pushInput(validatedInputs);
-    main();
   }
 
   if (!isPart2) {
     main();
   } else {
-    const readline = require('readline').createInterface({
-      input: process.stdin,
-      output: process.stdout,
-      prompt: 'INPUT>'
-    });
-
-    readline.on('line', line => {
-      switch (line.trim()) {
-        case '<':
-        case ',':
-          pendingInputs.push(-1);
-          comp.pushInput(-1);
-          break;
-        case '>':
-        case '.':
-          pendingInputs.push(1);
-          comp.pushInput(1);
-          break;
-        case 's':
-          validatedInputs.push(...pendingInputs);
-          pendingInputs.splice(0, pendingInputs.length);
-          readline.prompt();
-          return;
-        default:
-          pendingInputs.push(0);
-          comp.pushInput(0);
-          break;
-      }
-      if (main()) {
-        if (gameOver) {
-          console.log('GAME OVER. RESETTING...');
-          setTimeout(() => {
-            reset();
-            readline.prompt();
-          }, 1000);
-        } else {
-          readline.close();
-          console.log('YOU WIN!');
-        }
-      } else {
-        readline.prompt();
-      }
-    });
-    main();
-    readline.prompt();
+    while (!main()) {
+      comp.pushInput(Math.sign(ballX - paddleX));
+    }
+    result = score;
   }
 
   return result;
