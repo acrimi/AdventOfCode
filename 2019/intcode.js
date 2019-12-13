@@ -127,18 +127,36 @@ class Computer {
     this.loop = execute(this.state);
   }
 
+  reset(memory) {
+    this.state.pointer = 0;
+    this.state.relativeBase = 0;
+    this.state.memory = memory.concat([]);
+    this.state.inputs = [];
+    this.state.output = [];
+    this.loop = execute(this.state);
+  }
+
   execute(input, continuous) {
-    if (input != null) {
-      this.state.inputs = this.state.inputs.concat(input);
-    }
+    this.pushInput(input);
     if (!continuous) {
       return this.loop.next();
     } else {
+      const newOutputs = [];
       let output;
       do {
+        if (output) {
+          newOutputs.push(output.value);
+        }
         output = this.loop.next();
       } while (output.value != null && !output.done);
+      output.value = newOutputs;
       return output;
+    }
+  }
+
+  pushInput(input) {
+    if (input != null) {
+      this.state.inputs = this.state.inputs.concat(input);
     }
   }
 
