@@ -34,25 +34,27 @@ module.exports = (input, isPart2, isTest, testNumber) => {
       input = fft(input);
     }
   } else {
+    const originalLength = input.length;
     let sum = 0;
+    let signal = [];
     for (let i = messageOffset; i < outputLength; i++) {
-      sum += input[i % input.length];
+      const val = input[i % originalLength];
+      signal.push(val);
+      sum += val;
     }
     for (let p = 0; p < phases; p++) {
       let newSum = 0;
-      const output = [];
-      for (let i = messageOffset; i < outputLength; i++) {
-        if (i > messageOffset) {
-          sum -= input[(i - 1) % input.length];
-        }
-        output[i] = sum % 10;
-        newSum += output[i];
+      for (let i = 0; i < outputLength - messageOffset; i++) {
+        const val = sum % 10;
+        sum -= signal[i];
+        signal[i] = val;
+        newSum += val;
       }
       sum = newSum;
-      input = output;
     }
+    input = signal;
   }
-  result = input.slice(messageOffset, messageOffset + 8).join('');
+  result = input.slice(0, 8).join('');
 
   return result;
 }
