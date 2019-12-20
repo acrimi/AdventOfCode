@@ -5,6 +5,8 @@ module.exports = (input, isPart2, isTest, testNumber) => {
   const end = {};
   const openPortals = {};
   for (let y = 0; y < input.length; y++) {
+    const midY = input.length / 2;
+    const midX = input[y].length / 2;
     for (let x = 0; x < input[y].length; x++) {
       const cell = input[y][x];
       if (!cell.from && cell.match(/[A-Z]/)) {
@@ -33,7 +35,8 @@ module.exports = (input, isPart2, isTest, testNumber) => {
             from: {
               x: x3,
               y: y3
-            }
+            },
+            isOuter: (Math.abs(x3 - midX) + Math.abs(y3 - midY)) < (Math.abs(x - midX) + Math.abs(y - midY))
           };
 
           if (openPortals[name]) {
@@ -53,24 +56,29 @@ module.exports = (input, isPart2, isTest, testNumber) => {
     x: start.x,
     y: start.y,
     steps: 0,
-    trail: ''
+    level: 0
   }];
   history = [];
 
-  const markHistory = (x, y) => {
-    history[y] = history[y] || [];
-    history[y][x] = true;
+  const markHistory = (x, y, level) => {
+    history[level] = history[level] || [];
+    history[level][y] = history[level][y] || [];
+    history[level][y][x] = true;
   };
 
-  const hasVisited = (x, y) => {
-    return history[y] && history[y][x];
+  const hasVisited = (x, y, level) => {
+    return history[level] && history[level][y] && history[level][y][x];
   };
 
   const insertPosition = (position) => {
     let i = 0;
     for (; i < queue.length; i++) {
       const other = queue[i];
-      if (position.steps < other.steps) {
+      let result = position.level - other.level;
+      if (result === 0) {
+        result = position.steps - other.steps;
+      }
+      if (result < 0) {
         break;
       }
     }
@@ -78,7 +86,7 @@ module.exports = (input, isPart2, isTest, testNumber) => {
   };
 
   const attemptNewPosition = (previous, x, y) => {
-    if (hasVisited(x, y) || 
+    if (hasVisited(x, y, previous.level) || 
       y < 0 || y >= input.length ||
       x < 0 || x >= input[y].length) {
       return;
@@ -89,11 +97,22 @@ module.exports = (input, isPart2, isTest, testNumber) => {
       return;
     }
 
+    let level = previous.level;
     if (cell.to) {
-      markHistory(x, y);
+      markHistory(x, y, level);
+      if (isPart2) {
+        if (cell.isOuter) {
+          level--;
+          if (level < 0) {
+            return;
+          }
+        } else {
+          level++;
+        }
+      }
       x = cell.to.x;
       y = cell.to.y;
-      if (hasVisited(x, y)) {
+      if (hasVisited(x, y, level)) {
         return;
       }
     }
@@ -102,15 +121,15 @@ module.exports = (input, isPart2, isTest, testNumber) => {
       x,
       y,
       steps: previous.steps + 1,
-      trail: previous.trail + previous.x + ',' + previous.y + ' | '
+      level
     });
-    markHistory(x, y);
+    markHistory(x, y, level);
   }
 
-  markHistory(start.x, start.y);
+  markHistory(start.x, start.y, 0);
   while (queue.length) {
     const position = queue.shift();
-    if (position.x === end.x && position.y === end.y) {
+    if (position.x === end.x && position.y === end.y && (!isPart2 || position.level === 0)) {
       result = position.steps;
       break;
     }
