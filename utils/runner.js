@@ -99,7 +99,8 @@ exports.run = async (options) => {
   const day = pathMatch[2];
 
   let input = options.input || await loader.loadInput();
-  input = processInput(input, options);
+  const input1 = processInput(input, options);
+  const input2 = part ? input1 : processInput(input, options);
 
   let p1TestsPass = true;
   if (part !== 2) {
@@ -112,11 +113,8 @@ exports.run = async (options) => {
   }
 
   if (part !== 2) {
-    if (Array.isArray(input)) {
-      input = input.concat([]);
-    }
     const start = Date.now();
-    const answer = processor(input);
+    const answer = processor(input1);
     const runTime = Date.now() - start;
     logResult(answer, 1, profile && runTime);
     if (part === 1 && autoSubmit && (!requirePass || p1TestsPass)) {
@@ -138,7 +136,7 @@ exports.run = async (options) => {
 
   if (part !== 1) {
     const start = Date.now();
-    const answer = processor(input, true);
+    const answer = processor(input2, true);
     const runTime = Date.now() - start;
     logResult(answer, 2, profile && runTime);
     if (part === 2 && autoSubmit && (!requirePass || p2TestsPass)) {
