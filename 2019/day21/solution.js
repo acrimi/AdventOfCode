@@ -12,10 +12,27 @@ module.exports = (input, isPart2, isTest, testNumber) => {
   let instructions;
   if (!isPart2) {
     // if !A || (!C && D)
-    instructions = "NOT A J\nNOT C T\nAND D T\nOR T J\nWALK\n";
+    instructions =
+      `NOT A J
+      NOT C T
+      AND D T
+      OR T J
+      WALK
+      `;
   } else {
     // if !A || (!(B && C) && D && (E || H)
-    instructions = "OR B T\nAND C T\nNOT T T\nAND D T\nOR E J\nOR H J\nAND J T\nNOT A J\nOR T J\nRUN\n";
+    instructions =
+      `OR B T
+      AND C T
+      NOT T T
+      AND D T
+      OR E J
+      OR H J
+      AND J T
+      NOT A J
+      OR T J
+      RUN
+      `;
   }
 
   const state = comp.execute(ascii.toAscii(instructions), true).value;
