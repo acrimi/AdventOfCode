@@ -1,0 +1,20 @@
+{
+  "part1": [
+    {
+      "input": "deal with increment 7\ndeal into new stack\ndeal into new stack",
+      "expect": "0 3 6 9 2 5 8 1 4 7"
+    },
+    {
+      "input": "cut 6\ndeal with increment 7\ndeal into new stack",
+      "expect": "3 0 7 4 1 8 5 2 9 6"
+    },
+    {
+      "input": "deal with increment 7\ndeal with increment 9\ncut -2",
+      "expect": "6 3 0 7 4 1 8 5 2 9"
+    },
+    {
+      "input": "deal into new stack\ncut -2\ndeal with increment 7\ncut 8\ncut -4\ndeal with increment 7\ncut 3\ndeal with increment 9\ndeal with increment 3\ncut -1",
+      "expect": "9 2 5 8 1 4 7 0 3 6"
+    }
+  ]
+}
