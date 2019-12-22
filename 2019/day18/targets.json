@@ -1,0 +1,1226 @@
+{
+  "i": {
+    "position": {
+      "x": 1,
+      "y": 1
+    },
+    "distances": {
+      "c": {
+        "distance": 5,
+        "locks": "g"
+      },
+      "e": {
+        "distance": 9,
+        "locks": "g"
+      },
+      "@": {
+        "distance": 10,
+        "locks": "g"
+      },
+      "b": {
+        "distance": 11,
+        "locks": "g"
+      },
+      "f": {
+        "distance": 11,
+        "locks": "g"
+      },
+      "a": {
+        "distance": 13,
+        "locks": "g"
+      },
+      "g": {
+        "distance": 13,
+        "locks": "g"
+      },
+      "p": {
+        "distance": 14,
+        "locks": "hg"
+      },
+      "d": {
+        "distance": 15,
+        "locks": "g"
+      },
+      "h": {
+        "distance": 15,
+        "locks": "g"
+      },
+      "j": {
+        "distance": 16,
+        "locks": "ag"
+      },
+      "o": {
+        "distance": 16,
+        "locks": "dg"
+      },
+      "k": {
+        "distance": 18,
+        "locks": "ge"
+      },
+      "n": {
+        "distance": 18,
+        "locks": "gb"
+      },
+      "l": {
+        "distance": 20,
+        "locks": "gf"
+      },
+      "m": {
+        "distance": 20,
+        "locks": "gc"
+      }
+    }
+  },
+  "c": {
+    "position": {
+      "x": 6,
+      "y": 1
+    },
+    "distances": {
+      "i": {
+        "distance": 5,
+        "locks": "g"
+      },
+      "e": {
+        "distance": 4,
+        "locks": ""
+      },
+      "@": {
+        "distance": 5,
+        "locks": ""
+      },
+      "b": {
+        "distance": 6,
+        "locks": ""
+      },
+      "f": {
+        "distance": 6,
+        "locks": ""
+      },
+      "a": {
+        "distance": 8,
+        "locks": ""
+      },
+      "g": {
+        "distance": 8,
+        "locks": ""
+      },
+      "p": {
+        "distance": 9,
+        "locks": "h"
+      },
+      "d": {
+        "distance": 10,
+        "locks": ""
+      },
+      "h": {
+        "distance": 10,
+        "locks": ""
+      },
+      "j": {
+        "distance": 11,
+        "locks": "a"
+      },
+      "o": {
+        "distance": 11,
+        "locks": "d"
+      },
+      "k": {
+        "distance": 13,
+        "locks": "e"
+      },
+      "n": {
+        "distance": 13,
+        "locks": "b"
+      },
+      "l": {
+        "distance": 15,
+        "locks": "f"
+      },
+      "m": {
+        "distance": 15,
+        "locks": "c"
+      }
+    }
+  },
+  "e": {
+    "position": {
+      "x": 10,
+      "y": 1
+    },
+    "distances": {
+      "i": {
+        "distance": 9,
+        "locks": "g"
+      },
+      "c": {
+        "distance": 4,
+        "locks": ""
+      },
+      "@": {
+        "distance": 5,
+        "locks": ""
+      },
+      "p": {
+        "distance": 5,
+        "locks": "h"
+      },
+      "b": {
+        "distance": 6,
+        "locks": ""
+      },
+      "f": {
+        "distance": 6,
+        "locks": ""
+      },
+      "a": {
+        "distance": 8,
+        "locks": ""
+      },
+      "g": {
+        "distance": 8,
+        "locks": ""
+      },
+      "d": {
+        "distance": 10,
+        "locks": ""
+      },
+      "h": {
+        "distance": 10,
+        "locks": ""
+      },
+      "j": {
+        "distance": 11,
+        "locks": "a"
+      },
+      "o": {
+        "distance": 11,
+        "locks": "d"
+      },
+      "k": {
+        "distance": 13,
+        "locks": "e"
+      },
+      "n": {
+        "distance": 13,
+        "locks": "b"
+      },
+      "l": {
+        "distance": 15,
+        "locks": "f"
+      },
+      "m": {
+        "distance": 15,
+        "locks": "c"
+      }
+    }
+  },
+  "p": {
+    "position": {
+      "x": 15,
+      "y": 1
+    },
+    "distances": {
+      "i": {
+        "distance": 14,
+        "locks": "hg"
+      },
+      "c": {
+        "distance": 9,
+        "locks": "h"
+      },
+      "e": {
+        "distance": 5,
+        "locks": "h"
+      },
+      "@": {
+        "distance": 10,
+        "locks": "h"
+      },
+      "b": {
+        "distance": 11,
+        "locks": "h"
+      },
+      "f": {
+        "distance": 11,
+        "locks": "h"
+      },
+      "a": {
+        "distance": 13,
+        "locks": "h"
+      },
+      "g": {
+        "distance": 13,
+        "locks": "h"
+      },
+      "d": {
+        "distance": 15,
+        "locks": "h"
+      },
+      "h": {
+        "distance": 15,
+        "locks": "h"
+      },
+      "j": {
+        "distance": 16,
+        "locks": "ah"
+      },
+      "o": {
+        "distance": 16,
+        "locks": "dh"
+      },
+      "k": {
+        "distance": 18,
+        "locks": "he"
+      },
+      "n": {
+        "distance": 18,
+        "locks": "hb"
+      },
+      "l": {
+        "distance": 20,
+        "locks": "hf"
+      },
+      "m": {
+        "distance": 20,
+        "locks": "hc"
+      }
+    }
+  },
+  "j": {
+    "position": {
+      "x": 1,
+      "y": 3
+    },
+    "distances": {
+      "i": {
+        "distance": 16,
+        "locks": "ag"
+      },
+      "c": {
+        "distance": 11,
+        "locks": "a"
+      },
+      "e": {
+        "distance": 11,
+        "locks": "a"
+      },
+      "p": {
+        "distance": 16,
+        "locks": "ah"
+      },
+      "b": {
+        "distance": 5,
+        "locks": "a"
+      },
+      "@": {
+        "distance": 8,
+        "locks": "a"
+      },
+      "f": {
+        "distance": 9,
+        "locks": "a"
+      },
+      "a": {
+        "distance": 11,
+        "locks": "a"
+      },
+      "g": {
+        "distance": 11,
+        "locks": "a"
+      },
+      "d": {
+        "distance": 13,
+        "locks": "a"
+      },
+      "h": {
+        "distance": 13,
+        "locks": "a"
+      },
+      "o": {
+        "distance": 14,
+        "locks": "da"
+      },
+      "k": {
+        "distance": 16,
+        "locks": "ea"
+      },
+      "n": {
+        "distance": 16,
+        "locks": "ba"
+      },
+      "l": {
+        "distance": 18,
+        "locks": "af"
+      },
+      "m": {
+        "distance": 18,
+        "locks": "ac"
+      }
+    }
+  },
+  "b": {
+    "position": {
+      "x": 6,
+      "y": 3
+    },
+    "distances": {
+      "i": {
+        "distance": 11,
+        "locks": "g"
+      },
+      "c": {
+        "distance": 6,
+        "locks": ""
+      },
+      "e": {
+        "distance": 6,
+        "locks": ""
+      },
+      "p": {
+        "distance": 11,
+        "locks": "h"
+      },
+      "j": {
+        "distance": 5,
+        "locks": "a"
+      },
+      "@": {
+        "distance": 3,
+        "locks": ""
+      },
+      "f": {
+        "distance": 4,
+        "locks": ""
+      },
+      "a": {
+        "distance": 6,
+        "locks": ""
+      },
+      "g": {
+        "distance": 6,
+        "locks": ""
+      },
+      "d": {
+        "distance": 8,
+        "locks": ""
+      },
+      "h": {
+        "distance": 8,
+        "locks": ""
+      },
+      "o": {
+        "distance": 9,
+        "locks": "d"
+      },
+      "k": {
+        "distance": 11,
+        "locks": "e"
+      },
+      "n": {
+        "distance": 11,
+        "locks": "b"
+      },
+      "l": {
+        "distance": 13,
+        "locks": "f"
+      },
+      "m": {
+        "distance": 13,
+        "locks": "c"
+      }
+    }
+  },
+  "f": {
+    "position": {
+      "x": 10,
+      "y": 3
+    },
+    "distances": {
+      "i": {
+        "distance": 11,
+        "locks": "g"
+      },
+      "c": {
+        "distance": 6,
+        "locks": ""
+      },
+      "e": {
+        "distance": 6,
+        "locks": ""
+      },
+      "p": {
+        "distance": 11,
+        "locks": "h"
+      },
+      "j": {
+        "distance": 9,
+        "locks": "a"
+      },
+      "b": {
+        "distance": 4,
+        "locks": ""
+      },
+      "@": {
+        "distance": 3,
+        "locks": ""
+      },
+      "o": {
+        "distance": 5,
+        "locks": "d"
+      },
+      "a": {
+        "distance": 6,
+        "locks": ""
+      },
+      "g": {
+        "distance": 6,
+        "locks": ""
+      },
+      "d": {
+        "distance": 8,
+        "locks": ""
+      },
+      "h": {
+        "distance": 8,
+        "locks": ""
+      },
+      "k": {
+        "distance": 11,
+        "locks": "e"
+      },
+      "n": {
+        "distance": 11,
+        "locks": "b"
+      },
+      "l": {
+        "distance": 13,
+        "locks": "f"
+      },
+      "m": {
+        "distance": 13,
+        "locks": "c"
+      }
+    }
+  },
+  "o": {
+    "position": {
+      "x": 15,
+      "y": 3
+    },
+    "distances": {
+      "i": {
+        "distance": 16,
+        "locks": "dg"
+      },
+      "c": {
+        "distance": 11,
+        "locks": "d"
+      },
+      "e": {
+        "distance": 11,
+        "locks": "d"
+      },
+      "p": {
+        "distance": 16,
+        "locks": "dh"
+      },
+      "j": {
+        "distance": 14,
+        "locks": "da"
+      },
+      "b": {
+        "distance": 9,
+        "locks": "d"
+      },
+      "f": {
+        "distance": 5,
+        "locks": "d"
+      },
+      "@": {
+        "distance": 8,
+        "locks": "d"
+      },
+      "a": {
+        "distance": 11,
+        "locks": "d"
+      },
+      "g": {
+        "distance": 11,
+        "locks": "d"
+      },
+      "d": {
+        "distance": 13,
+        "locks": "d"
+      },
+      "h": {
+        "distance": 13,
+        "locks": "d"
+      },
+      "k": {
+        "distance": 16,
+        "locks": "ed"
+      },
+      "n": {
+        "distance": 16,
+        "locks": "bd"
+      },
+      "l": {
+        "distance": 18,
+        "locks": "df"
+      },
+      "m": {
+        "distance": 18,
+        "locks": "dc"
+      }
+    }
+  },
+  "@": {
+    "position": {
+      "x": 8,
+      "y": 4
+    },
+    "distances": {
+      "i": {
+        "distance": 10,
+        "locks": "g"
+      },
+      "c": {
+        "distance": 5,
+        "locks": ""
+      },
+      "e": {
+        "distance": 5,
+        "locks": ""
+      },
+      "p": {
+        "distance": 10,
+        "locks": "h"
+      },
+      "j": {
+        "distance": 8,
+        "locks": "a"
+      },
+      "b": {
+        "distance": 3,
+        "locks": ""
+      },
+      "f": {
+        "distance": 3,
+        "locks": ""
+      },
+      "o": {
+        "distance": 8,
+        "locks": "d"
+      },
+      "k": {
+        "distance": 8,
+        "locks": "e"
+      },
+      "a": {
+        "distance": 3,
+        "locks": ""
+      },
+      "g": {
+        "distance": 3,
+        "locks": ""
+      },
+      "n": {
+        "distance": 8,
+        "locks": "b"
+      },
+      "l": {
+        "distance": 10,
+        "locks": "f"
+      },
+      "d": {
+        "distance": 5,
+        "locks": ""
+      },
+      "h": {
+        "distance": 5,
+        "locks": ""
+      },
+      "m": {
+        "distance": 10,
+        "locks": "c"
+      }
+    }
+  },
+  "k": {
+    "position": {
+      "x": 1,
+      "y": 5
+    },
+    "distances": {
+      "i": {
+        "distance": 18,
+        "locks": "ge"
+      },
+      "c": {
+        "distance": 13,
+        "locks": "e"
+      },
+      "e": {
+        "distance": 13,
+        "locks": "e"
+      },
+      "p": {
+        "distance": 18,
+        "locks": "he"
+      },
+      "j": {
+        "distance": 16,
+        "locks": "ea"
+      },
+      "b": {
+        "distance": 11,
+        "locks": "e"
+      },
+      "f": {
+        "distance": 11,
+        "locks": "e"
+      },
+      "o": {
+        "distance": 16,
+        "locks": "ed"
+      },
+      "a": {
+        "distance": 5,
+        "locks": "e"
+      },
+      "@": {
+        "distance": 8,
+        "locks": "e"
+      },
+      "g": {
+        "distance": 9,
+        "locks": "e"
+      },
+      "d": {
+        "distance": 11,
+        "locks": "e"
+      },
+      "h": {
+        "distance": 11,
+        "locks": "e"
+      },
+      "n": {
+        "distance": 14,
+        "locks": "be"
+      },
+      "l": {
+        "distance": 16,
+        "locks": "ef"
+      },
+      "m": {
+        "distance": 16,
+        "locks": "ec"
+      }
+    }
+  },
+  "a": {
+    "position": {
+      "x": 6,
+      "y": 5
+    },
+    "distances": {
+      "i": {
+        "distance": 13,
+        "locks": "g"
+      },
+      "c": {
+        "distance": 8,
+        "locks": ""
+      },
+      "e": {
+        "distance": 8,
+        "locks": ""
+      },
+      "p": {
+        "distance": 13,
+        "locks": "h"
+      },
+      "j": {
+        "distance": 11,
+        "locks": "a"
+      },
+      "b": {
+        "distance": 6,
+        "locks": ""
+      },
+      "f": {
+        "distance": 6,
+        "locks": ""
+      },
+      "o": {
+        "distance": 11,
+        "locks": "d"
+      },
+      "k": {
+        "distance": 5,
+        "locks": "e"
+      },
+      "@": {
+        "distance": 3,
+        "locks": ""
+      },
+      "g": {
+        "distance": 4,
+        "locks": ""
+      },
+      "d": {
+        "distance": 6,
+        "locks": ""
+      },
+      "h": {
+        "distance": 6,
+        "locks": ""
+      },
+      "n": {
+        "distance": 9,
+        "locks": "b"
+      },
+      "l": {
+        "distance": 11,
+        "locks": "f"
+      },
+      "m": {
+        "distance": 11,
+        "locks": "c"
+      }
+    }
+  },
+  "g": {
+    "position": {
+      "x": 10,
+      "y": 5
+    },
+    "distances": {
+      "i": {
+        "distance": 13,
+        "locks": "g"
+      },
+      "c": {
+        "distance": 8,
+        "locks": ""
+      },
+      "e": {
+        "distance": 8,
+        "locks": ""
+      },
+      "p": {
+        "distance": 13,
+        "locks": "h"
+      },
+      "j": {
+        "distance": 11,
+        "locks": "a"
+      },
+      "b": {
+        "distance": 6,
+        "locks": ""
+      },
+      "f": {
+        "distance": 6,
+        "locks": ""
+      },
+      "o": {
+        "distance": 11,
+        "locks": "d"
+      },
+      "k": {
+        "distance": 9,
+        "locks": "e"
+      },
+      "a": {
+        "distance": 4,
+        "locks": ""
+      },
+      "@": {
+        "distance": 3,
+        "locks": ""
+      },
+      "n": {
+        "distance": 5,
+        "locks": "b"
+      },
+      "d": {
+        "distance": 6,
+        "locks": ""
+      },
+      "h": {
+        "distance": 6,
+        "locks": ""
+      },
+      "l": {
+        "distance": 11,
+        "locks": "f"
+      },
+      "m": {
+        "distance": 11,
+        "locks": "c"
+      }
+    }
+  },
+  "n": {
+    "position": {
+      "x": 15,
+      "y": 5
+    },
+    "distances": {
+      "i": {
+        "distance": 18,
+        "locks": "gb"
+      },
+      "c": {
+        "distance": 13,
+        "locks": "b"
+      },
+      "e": {
+        "distance": 13,
+        "locks": "b"
+      },
+      "p": {
+        "distance": 18,
+        "locks": "hb"
+      },
+      "j": {
+        "distance": 16,
+        "locks": "ba"
+      },
+      "b": {
+        "distance": 11,
+        "locks": "b"
+      },
+      "f": {
+        "distance": 11,
+        "locks": "b"
+      },
+      "o": {
+        "distance": 16,
+        "locks": "bd"
+      },
+      "k": {
+        "distance": 14,
+        "locks": "be"
+      },
+      "a": {
+        "distance": 9,
+        "locks": "b"
+      },
+      "g": {
+        "distance": 5,
+        "locks": "b"
+      },
+      "@": {
+        "distance": 8,
+        "locks": "b"
+      },
+      "d": {
+        "distance": 11,
+        "locks": "b"
+      },
+      "h": {
+        "distance": 11,
+        "locks": "b"
+      },
+      "l": {
+        "distance": 16,
+        "locks": "bf"
+      },
+      "m": {
+        "distance": 16,
+        "locks": "bc"
+      }
+    }
+  },
+  "l": {
+    "position": {
+      "x": 1,
+      "y": 7
+    },
+    "distances": {
+      "i": {
+        "distance": 20,
+        "locks": "gf"
+      },
+      "c": {
+        "distance": 15,
+        "locks": "f"
+      },
+      "e": {
+        "distance": 15,
+        "locks": "f"
+      },
+      "p": {
+        "distance": 20,
+        "locks": "hf"
+      },
+      "j": {
+        "distance": 18,
+        "locks": "af"
+      },
+      "b": {
+        "distance": 13,
+        "locks": "f"
+      },
+      "f": {
+        "distance": 13,
+        "locks": "f"
+      },
+      "o": {
+        "distance": 18,
+        "locks": "df"
+      },
+      "k": {
+        "distance": 16,
+        "locks": "ef"
+      },
+      "a": {
+        "distance": 11,
+        "locks": "f"
+      },
+      "g": {
+        "distance": 11,
+        "locks": "f"
+      },
+      "n": {
+        "distance": 16,
+        "locks": "bf"
+      },
+      "d": {
+        "distance": 5,
+        "locks": "f"
+      },
+      "h": {
+        "distance": 9,
+        "locks": "f"
+      },
+      "@": {
+        "distance": 10,
+        "locks": "f"
+      },
+      "m": {
+        "distance": 14,
+        "locks": "fc"
+      }
+    }
+  },
+  "d": {
+    "position": {
+      "x": 6,
+      "y": 7
+    },
+    "distances": {
+      "i": {
+        "distance": 15,
+        "locks": "g"
+      },
+      "c": {
+        "distance": 10,
+        "locks": ""
+      },
+      "e": {
+        "distance": 10,
+        "locks": ""
+      },
+      "p": {
+        "distance": 15,
+        "locks": "h"
+      },
+      "j": {
+        "distance": 13,
+        "locks": "a"
+      },
+      "b": {
+        "distance": 8,
+        "locks": ""
+      },
+      "f": {
+        "distance": 8,
+        "locks": ""
+      },
+      "o": {
+        "distance": 13,
+        "locks": "d"
+      },
+      "k": {
+        "distance": 11,
+        "locks": "e"
+      },
+      "a": {
+        "distance": 6,
+        "locks": ""
+      },
+      "g": {
+        "distance": 6,
+        "locks": ""
+      },
+      "n": {
+        "distance": 11,
+        "locks": "b"
+      },
+      "l": {
+        "distance": 5,
+        "locks": "f"
+      },
+      "h": {
+        "distance": 4,
+        "locks": ""
+      },
+      "@": {
+        "distance": 5,
+        "locks": ""
+      },
+      "m": {
+        "distance": 9,
+        "locks": "c"
+      }
+    }
+  },
+  "h": {
+    "position": {
+      "x": 10,
+      "y": 7
+    },
+    "distances": {
+      "i": {
+        "distance": 15,
+        "locks": "g"
+      },
+      "c": {
+        "distance": 10,
+        "locks": ""
+      },
+      "e": {
+        "distance": 10,
+        "locks": ""
+      },
+      "p": {
+        "distance": 15,
+        "locks": "h"
+      },
+      "j": {
+        "distance": 13,
+        "locks": "a"
+      },
+      "b": {
+        "distance": 8,
+        "locks": ""
+      },
+      "f": {
+        "distance": 8,
+        "locks": ""
+      },
+      "o": {
+        "distance": 13,
+        "locks": "d"
+      },
+      "k": {
+        "distance": 11,
+        "locks": "e"
+      },
+      "a": {
+        "distance": 6,
+        "locks": ""
+      },
+      "g": {
+        "distance": 6,
+        "locks": ""
+      },
+      "n": {
+        "distance": 11,
+        "locks": "b"
+      },
+      "l": {
+        "distance": 9,
+        "locks": "f"
+      },
+      "d": {
+        "distance": 4,
+        "locks": ""
+      },
+      "@": {
+        "distance": 5,
+        "locks": ""
+      },
+      "m": {
+        "distance": 5,
+        "locks": "c"
+      }
+    }
+  },
+  "m": {
+    "position": {
+      "x": 15,
+      "y": 7
+    },
+    "distances": {
+      "i": {
+        "distance": 20,
+        "locks": "gc"
+      },
+      "c": {
+        "distance": 15,
+        "locks": "c"
+      },
+      "e": {
+        "distance": 15,
+        "locks": "c"
+      },
+      "p": {
+        "distance": 20,
+        "locks": "hc"
+      },
+      "j": {
+        "distance": 18,
+        "locks": "ac"
+      },
+      "b": {
+        "distance": 13,
+        "locks": "c"
+      },
+      "f": {
+        "distance": 13,
+        "locks": "c"
+      },
+      "o": {
+        "distance": 18,
+        "locks": "dc"
+      },
+      "k": {
+        "distance": 16,
+        "locks": "ec"
+      },
+      "a": {
+        "distance": 11,
+        "locks": "c"
+      },
+      "g": {
+        "distance": 11,
+        "locks": "c"
+      },
+      "n": {
+        "distance": 16,
+        "locks": "bc"
+      },
+      "l": {
+        "distance": 14,
+        "locks": "fc"
+      },
+      "d": {
+        "distance": 9,
+        "locks": "c"
+      },
+      "h": {
+        "distance": 5,
+        "locks": "c"
+      },
+      "@": {
+        "distance": 10,
+        "locks": "c"
+      }
+    }
+  }
+}
