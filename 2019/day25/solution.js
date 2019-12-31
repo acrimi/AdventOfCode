@@ -15,9 +15,17 @@ module.exports = (input, isPart2, isTest, testNumber) => {
 
   const runCommands = () => {
     const output = comp.execute(null, true).value;
-    console.log(ascii.fromAscii(output));
+    if (!automatePlayer) {
+      console.log(ascii.fromAscii(output));
+    }
     lastOutput = ascii.fromAscii(output);
-    readline.prompt();
+    if (lastOutput.includes('keypad')) {
+      result = +lastOutput.match(/\d+/)[0];
+      return;
+    }
+    if (!automatePlayer) {
+      readline.prompt();
+    }
   };
 
   readline.on('line', line => {
@@ -76,7 +84,8 @@ module.exports = (input, isPart2, isTest, testNumber) => {
       takeItems(combo);
       comp.pushInput(ascii.toAscii('west\n'));
       runCommands();
-      if (lastOutput.length === 0) {
+      if (result !== 0) {
+        readline.close();
         break;
       }
     }
