@@ -39,6 +39,10 @@ exports.getInput = (year, day) => {
           console.log('Input not available');
           process.exit();
         }
+        if (res.statusCode != 200) {
+          console.log('Error getting input:', res.statusCode, res.statusMessage);
+          process.exit();
+        }
         resolve(input.trim());
       });
     });
