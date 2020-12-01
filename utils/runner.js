@@ -51,7 +51,7 @@ async function runTests(processor, tests, options, isPart2, fileSuffix) {
 
   if (typeof tests === 'number') {
     for (let i = 0; i < tests; i++) {
-      let testInput = await loader.loadInput((i+1) + fileSuffix);
+      let testInput = await loader.loadInput((i+1) + fileSuffix, options.skipCache);
       testInput = processInput(testInput, options);
 
       const start = Date.now();
@@ -90,15 +90,16 @@ exports.run = async (options) => {
   const processor = loader.loadSolution();
   const tests = loader.loadTestConfig();
   const part = +process.argv[2];
-  const autoSubmit = !!process.argv.find(x => /-[tp]*?s|--submit/.test(x));
-  const requirePass = !!process.argv.find(x => /-[sp]*?t|--test-strict/.test(x));
-  const profile = options.profile = !!process.argv.find(x => /-[st]*?p|--profile/.test(x));
+  const autoSubmit = !!process.argv.find(x => /-[tpx]*?s|--submit/.test(x));
+  const requirePass = !!process.argv.find(x => /-[spx]*?t|--test-strict/.test(x));
+  const profile = options.profile = !!process.argv.find(x => /-[stx]*?p|--profile/.test(x));
+  const skipCache = options.skipCache = !!process.argv.find(x => /-[tps]*?x|--no-cache/.test(x));
 
   const pathMatch = process.cwd().match(/(\d{4})\/day(\d+)$/);
   const year = pathMatch[1];
   const day = pathMatch[2];
 
-  let input = options.input || await loader.loadInput();
+  let input = options.input || await loader.loadInput(skipCache);
   const input1 = processInput(input, options);
   const input2 = part ? input1 : processInput(input, options);
 

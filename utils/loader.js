@@ -2,14 +2,18 @@ const fs = require('fs');
 
 const api = require('./api.js');
 
-exports.loadInput = async (testIndex) => {
+exports.loadInput = async (testIndex, skipCache) => {
+  if (typeof testIndex == 'boolean') {
+    skipCache = testIndex;
+    testIndex = undefined;
+  }
   let file = process.cwd() + '/input';
   if (testIndex) {
     file = process.cwd() + '/test'+testIndex;
   }
 
   let input;
-  if (fs.existsSync(file)) {
+  if (fs.existsSync(file) && (testIndex || !skipCache)) {
     input = fs.readFileSync(file, 'utf8');
   } else {
     if (fs.existsSync(file + '.json')) {
