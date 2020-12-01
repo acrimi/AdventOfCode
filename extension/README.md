@@ -2,9 +2,13 @@ A Chrome extension to help with pulling test data out of puzzle pages
 
 ## Installation
 
+Make sure Node.js is installed on your system. The native component of the extension uses node for parsing and updating the test.json file.
+
 In the `host` folder, run the appropriate `install_host` script for Windows or Linux/OSX to register the native component of the extension.
 
 Next, load the `app` folder as an unpacked extension in chrome, per the [documentation](https://developer.chrome.com/extensions/getstarted#unpacked)
+
+Double check the ID of the loaded extension in [chrome](chrome://extensions/). This id must match the domain for the `allowed_origins` entry in the `manifest.json` and `manifest-win.json` files in order for the extension to work. If it doesn't, update the manifest files and reinstall the host.
 
 To remove the extension, run `/host/uninstall_host` and delete the extension from Chrome.
 
