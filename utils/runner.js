@@ -39,7 +39,8 @@ function logResult(answer, part, isTest, testNumber, passed, profileTime) {
 
 function processInput(input, options) {
   if (typeof input === 'string' && options.separateLines) {
-    input = parser.parse(input, options.columnDelimiter, options.lineCleanup, options.columnCleanup);
+    const delimeter = options.separateLines === true ? '\n' : options.separateLines;
+    input = parser.parse(input, delimeter, options.columnDelimiter, options.lineCleanup, options.columnCleanup);
   }
 
   return input;

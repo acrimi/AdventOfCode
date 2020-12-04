@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-exports.parse = (input, columnDelimiter, lineCleanup, columnCleanup) => {
-  const lines = input.split('\n');
+exports.parse = (input, lineDelimiter, columnDelimiter, lineCleanup, columnCleanup) => {
+  const lines = input.split(lineDelimiter);
   for (let i = 0; i < lines.length; i++) {
     let line = lines[i];
     if (typeof lineCleanup === 'function') {
