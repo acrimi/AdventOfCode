@@ -1,0 +1,18 @@
+{
+  "part1": [
+    {
+      "input": "abcx\nabcy\nabcz",
+      "expect": "6"
+    },
+    {
+      "input": "abc\n\na\nb\nc\n\nab\nac\n\na\na\na\na\n\nb",
+      "expect": "11"
+    }
+  ],
+  "part2": [
+    {
+      "input": "abc\n\na\nb\nc\n\nab\nac\n\na\na\na\na\n\nb",
+      "expect": "6"
+    }
+  ]
+}
