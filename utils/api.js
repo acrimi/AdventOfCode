@@ -58,7 +58,7 @@ exports.submit = (year, day, part, answer) => {
   return new Promise(resolve => {
     const data = querystring.stringify({
       level: part,
-      answer: answer
+      answer: answer && answer.toString()
     });
 
     const req = https.request({
