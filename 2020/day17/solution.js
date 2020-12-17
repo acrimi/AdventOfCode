@@ -1,5 +1,3 @@
-const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require("constants");
-
 module.exports = (input, isPart2, isTest, testNumber) => {
   let result = 0;
 
