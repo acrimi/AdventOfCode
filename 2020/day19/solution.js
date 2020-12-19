@@ -2,6 +2,7 @@ module.exports = (input, isPart2, isTest, testNumber) => {
   let result = 0;
 
   const rules = {};
+  const maxLength = input.map(l => l.length).sort((a, b) => a - b).pop();
 
   function parseRule(rule) {
     const [_, idx, expr] = rule.match(/(\d+): (.*)/);
@@ -16,9 +17,9 @@ module.exports = (input, isPart2, isTest, testNumber) => {
       } else if (idx == 11) {
         let forty2 = simplifyRule(42);
         let thirty1 = simplifyRule(31);
-        const max = 50; // lol
+        const max = Math.ceil(maxLength / 2);
         let rule = '';
-        for (let i = 1; i < max; i++) {
+        for (let i = 1; i <= max; i++) {
           if (i > 1) {
             rule += '|';
           }
