@@ -10,24 +10,6 @@ module.exports = (input, isPart2, isTest, testNumber) => {
   }
 
   function simplifyRule(idx) {
-    if (isPart2) {
-      if (idx == 8) {
-        let forty2 = simplifyRule(42);
-        return `(?:${forty2})+`;
-      } else if (idx == 11) {
-        let forty2 = simplifyRule(42);
-        let thirty1 = simplifyRule(31);
-        const max = Math.ceil(maxLength / 2);
-        let rule = '';
-        for (let i = 1; i <= max; i++) {
-          if (i > 1) {
-            rule += '|';
-          }
-          rule += `(?:(?:${forty2}){${i}}(?:${thirty1}){${i}})`
-        }
-        return rule;
-      }
-    }
     if (typeof rules[idx] === 'string') {
       return rules[idx];
     }
@@ -46,6 +28,22 @@ module.exports = (input, isPart2, isTest, testNumber) => {
     return rules[idx];
   }
 
+  function rewriteRules() {
+    let forty2 = simplifyRule(42);
+    rules[8] =  `(?:${forty2})+`;
+
+    let thirty1 = simplifyRule(31);
+    const max = Math.ceil(maxLength / 2);
+    let rule = '';
+    for (let i = 1; i <= max; i++) {
+      if (i > 1) {
+        rule += '|';
+      }
+      rule += `(?:(?:${forty2}){${i}}(?:${thirty1}){${i}})`
+    }
+    rules[11] = rule;
+  }
+
   function evaluateMessage(msg) {
     const rule = new RegExp('^' + rules[0] + '$');
     if (rule.test(msg)) {
@@ -58,6 +56,9 @@ module.exports = (input, isPart2, isTest, testNumber) => {
     if (parsingRules) {
       if (line.length === 0) {
         parsingRules = false;
+        if (isPart2) {
+          rewriteRules();
+        }
         simplifyRule(0);
         continue;
       }
