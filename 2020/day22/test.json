@@ -1,0 +1,14 @@
+{
+  "part1": [
+    {
+      "input": "Player 1:\n9\n2\n6\n3\n1\n\nPlayer 2:\n5\n8\n4\n7\n10",
+      "expect": "306"
+    }
+  ],
+  "part2": [
+    {
+      "input": "Player 1:\n9\n2\n6\n3\n1\n\nPlayer 2:\n5\n8\n4\n7\n10",
+      "expect": "291"
+    }
+  ]
+}
