@@ -1,0 +1,14 @@
+{
+  "part1": [
+    {
+      "input": "mxmxvkd kfcds sqjhc nhms (contains dairy, fish)\ntrh fvjkl sbzzf mxmxvkd (contains dairy)\nsqjhc fvjkl (contains soy)\nsqjhc mxmxvkd sbzzf (contains fish)",
+      "expect": "5"
+    }
+  ],
+  "part2": [
+    {
+      "input": "mxmxvkd kfcds sqjhc nhms (contains dairy, fish)\ntrh fvjkl sbzzf mxmxvkd (contains dairy)\nsqjhc fvjkl (contains soy)\nsqjhc mxmxvkd sbzzf (contains fish)",
+      "expect": "mxmxvkd,sqjhc,fvjkl"
+    }
+  ]
+}
