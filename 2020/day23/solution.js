@@ -4,36 +4,67 @@ module.exports = (input, isPart2, isTest, testNumber) => {
   const moves = isPart2 ? 10000000 : 100;
   const sorted = [...input].sort((a, b) => a - b);
   const min = sorted.shift();
-  const max = sorted.pop();
-  for (let i = max + 1; i <= 1000000; i++) {
-    input.push(i);
+  let max = sorted.pop();
+  const first = {
+    value: input.shift()
+  };
+  const cups = {
+    [first.value]: first
+  };
+  let cup = first;
+  for (const c of input) {
+    const next = {
+      value: c
+    };
+    cups[c] = next;
+    cup.next = next;
+    cup = next;
   }
+  if (isPart2) {
+    for (let i = max + 1; i <= 1000000; i++) {
+      const next = {
+        value: i
+      };
+      cups[i] = next;
+      cup.next = next;
+      cup = next;
+    }
+    max = 1000000;
+  }
+  cup.next = first;
 
-  let currentIndex = 0;
+  cup = first;
   for (let i = 0; i < moves; i++) {
-    const currentCup = input[currentIndex];
-    const removed = input.splice(currentIndex + 1, 3);
-    removed.push(...input.splice(0, 3 - removed.length));
-    let insertion;
-    let targetValue = currentCup - 1;
-    do {
-      insertion = input.indexOf(targetValue);
-      targetValue--;
-      if (targetValue < min) {
-        targetValue = max;
+    let insertTarget = cup.value;
+    const ineligible = [cup.value, cup.next.value, cup.next.next.value, cup.next.next.next.value];
+    
+    const removed = cup.next;
+    const end = removed.next.next.next;
+    cup.next = end;
+    cup = end;
+
+    while (ineligible.includes(insertTarget)) {
+      insertTarget--;
+      if (insertTarget < min) {
+        insertTarget = max;
       }
-    } while (insertion == -1)
-    input.splice(insertion + 1, 0, ...removed);
-    currentIndex = input.indexOf(currentCup) + 1;
-    currentIndex %= input.length;
+    }
+
+    let insert = cups[insertTarget];
+    removed.next.next.next = insert.next;
+    insert.next = removed;
   }
 
-  const oneIndex = input.indexOf(1);
+  const one = cups[1];
   if (!isPart2) {
-    result = input.slice(oneIndex + 1).concat(input.slice(0, oneIndex)).join('');
+    result = '';
+    let c = one.next;
+    while (c.value != 1) {
+      result += c.value;
+      c = c.next;
+    }
   } else {
-    input.push(input.shift(), input.shift());
-    result = input[oneIndex + 1] * input[oneIndex + 2];
+    result = one.next.value * one.next.next.value;
   }
 
   return result;
